@@ -1,5 +1,8 @@
+import requests
+
 def func ():
-    print("The secret to the univers is 42")
+    x = requests.get('https://libretranslate.com/translate')
+    print(x.headers)
 
 
 if __name__ == "__main__":
