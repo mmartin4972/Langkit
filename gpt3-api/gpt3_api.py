@@ -10,11 +10,15 @@ model_options = [
     "text-ada-001"
 ]
 
+
+
 gpt3_temperature = 0.4
 gpt3_max_tokens = 64
 gpt3_top_p = 1
 gpt3_frequency_penalty = 0
 gpt3_presence_penalty = 0
+
+
 
 def get_gpt3_completion_response (prompt: str, model: int) -> str:
     return openai.Completion.create(
