@@ -14,6 +14,7 @@ function App() {
     })
     .then((response) => {
       const res =response.data
+      console.log(response)
       setFlashcardData(({words: res.words}))
       console.log(res)
     }).catch((error) => {
