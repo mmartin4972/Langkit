@@ -2,30 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eel Example</title>
-    <style>
-      h1{
-        color: green;
-        text-align: center;
-      }
-      .random_number{
-        margin: 50px;
-        font-size: 150px;
-        text-align: center;
-      }
-      button{
-        display: block;
-        margin: 0 auto;
-      }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="/eel.js"></script>
+    <title>Static Template</title>
   </head>
   <body>
-    <h1>Geeks for Geeks</h1>
-    <div class="random_number"></div>
-    <button>Get a Random number using Python</button>
-    <script type="text/javascript" src="../eel.js"></script>
-    <script src="./script.js"></script>
+    <div class="container">
+        <div class="page">
+            <div class="response-window"></div>
+            <div class="microphone-button" id="mic_click" onclick="mic_click()"></div>
+            <div class="generation-window"></div>
+            <div class="global-window"></div>
+        </div>
+    </div>
   </body>
 </html>
