@@ -33,6 +33,10 @@ You only need to follow either the Python or Docker setup. Not necessary to do b
 ## Switching From Jaseci
 - I tried a bit to learn Jaseci, but the documentation is very lacking, and it abstracts many things away without explanation, so it is very hard to understand how to use them
 - I am just going to use Python to create this server and some general python functions and models. Jaseci is too much of a pain
+- I am going to switch to spacy since this is the first library that appeared online that is recommended for solving NER problems
+
+## Spacy Setup
+- https://spacy.io/usage/training
 
 ## TODO:
 - Use Sentence Encoding to make our entity extraction more flexible
