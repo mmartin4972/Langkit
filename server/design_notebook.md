@@ -37,6 +37,7 @@ You only need to follow either the Python or Docker setup. Not necessary to do b
 
 ## Spacy Setup
 - https://spacy.io/usage/training
+- Using spacy version 2.3.8 just because it is far easier to use than latest version of Spacy
 
 ## TODO:
 - Use Sentence Encoding to make our entity extraction more flexible

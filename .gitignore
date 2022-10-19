@@ -1,3 +1,4 @@
 .env
 demo/build
 demo/dist
+cmd_parsing_server/spacy/output

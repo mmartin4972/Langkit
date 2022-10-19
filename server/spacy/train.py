@@ -4,7 +4,11 @@ import random
 from pathlib import Path
 import spacy
 from tqdm import tqdm
+import re
 
+# TODO:
+# Replace TRAIN_DATA with something that will read from the ner_train.json file and
+#   generate the below structure using regex
 TRAIN_DATA = [
   ("Generate me phrases about dinosaurs.", { 
     'entities': [(0, 19, "FUNC"),(26, 35, "PARAM")]
@@ -16,7 +20,7 @@ TRAIN_DATA = [
 ]
 
 model = None
-output_dir=Path("/langkit/cmd_parsing_server/spacy/output")
+output_dir=Path("./output")
 n_iter=100
 
 #load the model
@@ -55,7 +59,7 @@ with nlp.disable_pipes(*other_pipes):  # only train NER
                 losses=losses)
         print(losses)
 
-# Just test because
+# Test just because
 for text, _ in TRAIN_DATA:
     doc = nlp(text)
     print('Entities', [(ent.text, ent.label_) for ent in doc.ents])
