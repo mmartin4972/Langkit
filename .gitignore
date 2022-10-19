@@ -1,2 +1,3 @@
-demo/backend/env
-demo/backend/__pycache__
+.env
+demo/build
+demo/dist
