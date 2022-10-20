@@ -1,14 +1,12 @@
 # Jaseci Setup Docs
 
-You only need to follow either the Python or Docker setup. Not necessary to do both.
-
 ## Python Setup
 - Requires python_version > 3.6
 - pip install -r requirements.txt
 
 ## Docker Setup
-1. docker pull mmartin4972/ubuntu20:jaseci
-2. docker run -dt -v ${pwd}:/jaseci mmartin4972/ubuntu20:jaseci
+1. docker pull mmartin4972/ubuntu20:langkit
+2. docker run -dt -v ${pwd}:/jaseci -p 5000:5000 mmartin4972/ubuntu20:langkit
 3. Attach visual studio code to docker container
 
 ## Named Entity Recognition or Sentence Encoding
@@ -41,11 +39,12 @@ You only need to follow either the Python or Docker setup. Not necessary to do b
 - Train model: ```python3 train.py```
 
 ## Server Launch
-```python3 -m flask --app main run```
+```python3 -wsgi.py```
 
 ## Launching to Heroku
 - In order to get Heroku working properly the Procfile, wsgi.py, runtime.txt, and requirements.txt files had to be added
 - The requirements.txt should only include requirements for the server code, since only the server code is running on Heroku
+- Tensorflow Hub takes too much time to download the file. Consequently, I am going to upload the model directly to Heroku and then just read the file from memory
 
 ## Jaseci doc mistakes:
 - *Modelling Behavior* under JAC Language overview is spelled wrong
