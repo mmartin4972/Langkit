@@ -3,7 +3,10 @@ import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
-from enum import Enum
+from flask import Flask
+from flask import request
+
+app = Flask(__name__)
 
 print("Loading Models. This could take some time")
 # Load entity extractor
@@ -13,24 +16,59 @@ entity_extractor = spacy.load("./spacy/output")
 word_embedder = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
 print("Models loaded")
 
+# TODO: Would be good to cache these embeddings in a file to reduce launch time
 funcs = {
     'GEN_PHRASE': {
-        'str': "generate phrases", 
-        'emb': word_embedder(["generate phrases"])
+        'str': 'generate phrases', 
+        'emb': word_embedder(['generate phrases'])
+    },
+    'GEN_WORD': {
+        'str': 'generate words',
+        'emb': word_embedder(['generate words'])
+    },
+    'TRANS': {
+        'str': 'translate',
+        'emb': word_embedder(['translate'])
+    },
+    'UNKNOWN': {
+        'str': '',
+        'emb': tf.constant([[0]*512], tf.float32)
     }
 }
 
-GEN_WORD = "generate words"
-TRANS = "translate" 
+@app.route("/")
+def default():
+    print("MESSAGE RECEIEVED")
+    return "Server Ack\n"
 
-input_text = [
-    "hello"
-    "generate me"
-]
+@app.route('/parse-cmd', methods=['POST'])
+def parse_cmd():
+    cmds = request.json
+    res = []
+    for cmd in cmds :
+        print(cmd)
+        ents = entity_extractor(cmd['cmd']).ents
 
-print(funcs['GEN_PHRASE']['emb'])
+        elt = {
+            'FUNC':'UNKNOWN',
+            'PARAM':''
+        }
 
-input_embeddings = word_embedder(input_text)
-for i, emb in enumerate(input_embeddings) :
-    print(input_text[i])
-    print(np.inner(funcs['GEN_PHRASE']['emb'], emb))
+        # Look through found entities to populate elt
+        for ent in ents :
+            
+            if ent.label_ == 'FUNC' :
+                # Find func enum that best matches extracted func phrase
+                best_dist = 0.5
+                for func in funcs :
+                    dist = np.inner(funcs[func]['emb'], word_embedder([ent.text])[0]) # TODO could do embedding in batch
+                    if best_dist < dist :
+                        elt['FUNC'] = func
+                        best_dist = dist
+
+            elif ent.label_ == 'PARAM' :
+                elt['PARAM'] = ent.text  
+
+        res.append(elt)
+
+    return res
