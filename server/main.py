@@ -5,6 +5,8 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from flask import Flask
 from flask import request
+import os
+import subprocess
 
 app = Flask(__name__)
 
@@ -13,7 +15,15 @@ print("Loading Models. This could take some time")
 entity_extractor = spacy.load("./server/spacy/output")
 
 # Load word embedder
-word_embedder = hub.load("./use_model")
+# Heroku specific stuff
+# TODO: This is really sketchy. I'm sure there's a better way
+# p = '/app/use_model'
+# if not os.path.exists(p) :
+#     os.mkdir(p)
+#     print("Downloading Universal Sentence Encoder Model")
+#     subprocess.call("curl -L \"https://tfhub.dev/google/universal-sentence-encoder/2?tf-hub-format=compressed\" | tar -zxvC /app/use_model", shell=True)
+tf.compat.v1.enable_resource_variables()
+word_embedder = hub.load("https://tfhub.dev/google/universal-sentence-encoder/2")
 print("Models loaded")
 
 # TODO: Would be good to cache these embeddings in a file to reduce launch time
