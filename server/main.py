@@ -13,7 +13,7 @@ print("Loading Models. This could take some time")
 entity_extractor = spacy.load("./server/spacy/output")
 
 # Load word embedder
-word_embedder = hub.KerasLayer("https://tfhub.dev/google/universal-sentence-encoder/4")
+word_embedder = hub.load("./use_model")
 print("Models loaded")
 
 # TODO: Would be good to cache these embeddings in a file to reduce launch time
