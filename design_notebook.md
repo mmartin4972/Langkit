@@ -43,8 +43,9 @@ You only need to follow either the Python or Docker setup. Not necessary to do b
 ## Server Launch
 ```python3 -m flask --app main run```
 
-## TODO:
-- Use Sentence Encoding to make our entity extraction more flexible
+## Launching to Heroku
+- In order to get Heroku working properly the Procfile, wsgi.py, runtime.txt, and requirements.txt files had to be added
+- The requirements.txt should only include requirements for the server code, since only the server code is running on Heroku
 
 ## Jaseci doc mistakes:
 - *Modelling Behavior* under JAC Language overview is spelled wrong
