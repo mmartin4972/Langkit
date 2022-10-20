@@ -7,6 +7,7 @@ from flask import Flask
 from flask import request
 import os
 import subprocess
+import sentencepiece
 
 app = Flask(__name__)
 
@@ -22,8 +23,16 @@ entity_extractor = spacy.load("./server/spacy/output")
 #     os.mkdir(p)
 #     print("Downloading Universal Sentence Encoder Model")
 #     subprocess.call("curl -L \"https://tfhub.dev/google/universal-sentence-encoder/2?tf-hub-format=compressed\" | tar -zxvC /app/use_model", shell=True)
-tf.compat.v1.enable_resource_variables()
-word_embedder = hub.load("https://tfhub.dev/google/universal-sentence-encoder/2")
+# word_embedder = hub.load("https://tfhub.dev/google/universal-sentence-encoder/2")
+with tf.Session() as sess:
+  module = hub.Module("https://tfhub.dev/google/universal-sentence-encoder-lite/2")
+  spm_path = sess.run(module(signature="spm_path"))
+  # spm_path now contains a path to the SentencePiece model stored inside the
+  # TF-Hub module
+
+sp = spm.SentencePieceProcessor()
+word_embedder = sp.Load(spm_path)
+
 print("Models loaded")
 
 # TODO: Would be good to cache these embeddings in a file to reduce launch time
