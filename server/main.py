@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 print("Loading Models. This could take some time")
 # Load entity extractor
-entity_extractor = spacy.load("./spacy/output")
+entity_extractor = spacy.load("./server/spacy/output")
 
 # Load word embedder
 word_embedder = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
