@@ -12,35 +12,42 @@ app = Flask(__name__)
 
 print("Loading Models. This could take some time")
 # Load entity extractor
-# entity_extractor = spacy.load("./server/spacy/output")
+entity_extractor = spacy.load("./spacy/output")
+
+def extract_entities(phrase:str) :
+    return entity_extractor(phrase).ents
 
 # Load word embedder
-# preprocessor = hub.KerasLayer(
-#     "https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
-# word_embedder = hub.KerasLayer(
-#     "https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-128_A-2/2",
-#     trainable=True)
-# print("Models loaded")
+preprocessor = hub.KerasLayer(
+    "https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
+word_embedder = hub.KerasLayer(
+    "https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-128_A-2/2",
+    trainable=True)
 
-# # TODO: Would be good to cache these embeddings in a file to reduce launch time
-# funcs = {
-#     'GEN_PHRASE': {
-#         'str': 'generate phrases', 
-#         'emb': word_embedder(['generate phrases'])
-#     },
-#     'GEN_WORD': {
-#         'str': 'generate words',
-#         'emb': word_embedder(['generate words'])
-#     },
-#     'TRANS': {
-#         'str': 'translate',
-#         'emb': word_embedder(['translate'])
-#     },
-#     'UNKNOWN': {
-#         'str': '',
-#         'emb': tf.constant([[0]*512], tf.float32)
-#     }
-# }
+def get_phrase_embedding(phrase:str) :
+    return word_embedder(preprocessor(tf.constant([phrase])))['pooled_output']
+
+print("Models loaded")
+
+# TODO: Would be good to cache these embeddings in a file to reduce launch time
+funcs = {
+    'GEN_PHRASE': {
+        'str': 'generate phrases', 
+        'emb': get_phrase_embedding('generate phrases')
+    },
+    'GEN_WORD': {
+        'str': 'generate words',
+        'emb': get_phrase_embedding('generate words')
+    },
+    'TRANS': {
+        'str': 'translate',
+        'emb': get_phrase_embedding('translate')
+    },
+    'UNKNOWN': {
+        'str': '',
+        'emb': tf.constant([[0]*128], tf.float32)
+    }
+}
 print("Server Initialized Successfully")
 
 @app.route("/")
@@ -54,7 +61,7 @@ def parse_cmd():
     res = []
     for cmd in cmds :
         print(cmd)
-        ents = entity_extractor(cmd['cmd']).ents
+        ents = extract_entities(cmd['cmd'])
 
         elt = {
             'FUNC':'UNKNOWN',
@@ -67,13 +74,11 @@ def parse_cmd():
             if ent.label_ == 'FUNC' :
                 # Find func enum that best matches extracted func phrase
                 best_dist = 0.5
+                print(ent.text)
                 for func in funcs :
-                    input_text = tf.constant([ent.text])
-                    embedder_input = preprocessor(input_text)
-                    print(word_embedder(embedder_input))
-                    print(word_embedder(embedder_input)[0])
-
-                    dist = np.inner(funcs[func]['emb'], word_embedder(embedder_input)[0]) # TODO could do embedding in batch
+                    dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
+                    print(func)
+                    print(dist)
                     if best_dist < dist :
                         elt['FUNC'] = func
                         best_dist = dist

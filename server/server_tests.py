@@ -1,6 +1,6 @@
 import requests
 
-url = 'http://127.0.0.1:5000/parse-cmd'
+url = 'http://127.0.0.1:9000/parse-cmd'
 data = [
     {'cmd': 'Generate me phrases about a dinner party'},
     {'cmd': 'Generate me words about a dinner party ontop of a volcano'},
