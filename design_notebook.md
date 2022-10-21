@@ -55,6 +55,11 @@
 - I am continually limited by this constraint and it is frustrating my use of interesting models
 - Consequently I am going to transition the server to run entirely inside a Docker container so as to avoid this Slug size issue
 
+## Switching to USE_Lite over Small_Bert
+- Small Bert required preprocessing and did a far worse job at detecting word embedding similarity than use_lite did
+- For these reasons I switched back to use_lite
+- I could not use just normal universal sentence encoder since it took up too much memory
+
 ## Tensorflow Hub
 - Tensorflow hub is a very cool site
 - It has pre-trained models that let you solve complex ML tasks with incredibly limited amounts of knowledge about Tensorflow
