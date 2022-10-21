@@ -12,35 +12,36 @@ app = Flask(__name__)
 
 print("Loading Models. This could take some time")
 # Load entity extractor
-entity_extractor = spacy.load("./server/spacy/output")
+# entity_extractor = spacy.load("./server/spacy/output")
 
 # Load word embedder
-preprocessor = hub.KerasLayer(
-    "https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
-word_embedder = hub.KerasLayer(
-    "https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-128_A-2/2",
-    trainable=True)
-print("Models loaded")
+# preprocessor = hub.KerasLayer(
+#     "https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
+# word_embedder = hub.KerasLayer(
+#     "https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-128_A-2/2",
+#     trainable=True)
+# print("Models loaded")
 
-# TODO: Would be good to cache these embeddings in a file to reduce launch time
-funcs = {
-    'GEN_PHRASE': {
-        'str': 'generate phrases', 
-        'emb': word_embedder(['generate phrases'])
-    },
-    'GEN_WORD': {
-        'str': 'generate words',
-        'emb': word_embedder(['generate words'])
-    },
-    'TRANS': {
-        'str': 'translate',
-        'emb': word_embedder(['translate'])
-    },
-    'UNKNOWN': {
-        'str': '',
-        'emb': tf.constant([[0]*512], tf.float32)
-    }
-}
+# # TODO: Would be good to cache these embeddings in a file to reduce launch time
+# funcs = {
+#     'GEN_PHRASE': {
+#         'str': 'generate phrases', 
+#         'emb': word_embedder(['generate phrases'])
+#     },
+#     'GEN_WORD': {
+#         'str': 'generate words',
+#         'emb': word_embedder(['generate words'])
+#     },
+#     'TRANS': {
+#         'str': 'translate',
+#         'emb': word_embedder(['translate'])
+#     },
+#     'UNKNOWN': {
+#         'str': '',
+#         'emb': tf.constant([[0]*512], tf.float32)
+#     }
+# }
+print("Server Initialized Successfully")
 
 @app.route("/")
 def default():
