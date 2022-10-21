@@ -3,7 +3,6 @@ import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
-import tensorflow_text
 from flask import Flask
 from flask import request
 from word_embedding.word_embedder import WordEmbedder
