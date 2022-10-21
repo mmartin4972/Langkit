@@ -50,6 +50,17 @@
 - Heroku server was running out of memory when using use
 - By switching to use-lite memory constraints were able to be met and code base was easier to manage
 
+## Switching to using Docker for Deployment
+- Unfortunately, using the tensorflow-text caused my slug size to be over 500mb
+- I am continually limited by this constraint and it is frustrating my use of interesting models
+- Consequently I am going to transition the server to run entirely inside a Docker container so as to avoid this Slug size issue
+
+## Tensorflow Hub
+- Tensorflow hub is a very cool site
+- It has pre-trained models that let you solve complex ML tasks with incredibly limited amounts of knowledge about Tensorflow
+- Tensorflow 2 is far easier to use than Tensorflow 1 and is far more intuitive. Do your best to always opt for Tensorflow 2 models
+- Tensorflos library is very large, so make sure that you keep this in mind when developing
+
 ## Jaseci doc mistakes:
 - *Modelling Behavior* under JAC Language overview is spelled wrong
     - b change to be
