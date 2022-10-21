@@ -55,7 +55,7 @@ paragraph = (
     "Universal Sentence Encoder embeddings also support short paragraphs. "
     "There is no hard limit on how long the paragraph is. Roughly, the longer "
     "the more 'diluted' the embedding will be.")
-messages = [word, sentence, paragraph]
+messages = [word, sentence, paragraph, "Elephants rock"]
 
 values, indices, dense_shape = process_to_IDs_in_sparse_format(sp, messages)
 
@@ -76,19 +76,4 @@ with tf.Session() as session:
     message_embedding_snippet = ", ".join(
         (str(x) for x in message_embedding[:3]))
     print("Embedding: [{}, ...]\n".format(message_embedding_snippet))
-
-
-with tf.Session() as session:
-  session.run([tf.global_variables_initializer(), tf.tables_initializer()])
-  message_embeddings = session.run(
-      encodings,
-      feed_dict={input_placeholder.values: values,
-                input_placeholder.indices: indices,
-                input_placeholder.dense_shape: dense_shape})
-
-  for i, message_embedding in enumerate(np.array(message_embeddings).tolist()):
-    print("Message: {}".format(messages[i]))
-    print("Embedding size: {}".format(len(message_embedding)))
-    message_embedding_snippet = ", ".join(
-        (str(x) for x in message_embedding[:3]))
-    print("Embedding: [{}, ...]\n".format(message_embedding_snippet))
+    print(np.inner(message_embedding, message_embeddings[0]))
