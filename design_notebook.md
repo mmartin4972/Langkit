@@ -46,6 +46,10 @@
 - The requirements.txt should only include requirements for the server code, since only the server code is running on Heroku
 - Tensorflow Hub takes too much time to download the file. Consequently, I am going to upload the model directly to Heroku and then just read the file from memory
 
+## Switching from use to use-lite
+- Heroku server was running out of memory when using use
+- By switching to use-lite memory constraints were able to be met and code base was easier to manage
+
 ## Jaseci doc mistakes:
 - *Modelling Behavior* under JAC Language overview is spelled wrong
     - b change to be

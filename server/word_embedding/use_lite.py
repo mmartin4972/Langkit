@@ -10,10 +10,6 @@ import os
 import re
 
 
-
-
-
-
 module = hub.Module("https://tfhub.dev/google/universal-sentence-encoder-lite/2")
 
 input_placeholder = tf.sparse_placeholder(tf.int64, shape=[None, None])
@@ -82,3 +78,17 @@ with tf.Session() as session:
     print("Embedding: [{}, ...]\n".format(message_embedding_snippet))
 
 
+with tf.Session() as session:
+  session.run([tf.global_variables_initializer(), tf.tables_initializer()])
+  message_embeddings = session.run(
+      encodings,
+      feed_dict={input_placeholder.values: values,
+                input_placeholder.indices: indices,
+                input_placeholder.dense_shape: dense_shape})
+
+  for i, message_embedding in enumerate(np.array(message_embeddings).tolist()):
+    print("Message: {}".format(messages[i]))
+    print("Embedding size: {}".format(len(message_embedding)))
+    message_embedding_snippet = ", ".join(
+        (str(x) for x in message_embedding[:3]))
+    print("Embedding: [{}, ...]\n".format(message_embedding_snippet))

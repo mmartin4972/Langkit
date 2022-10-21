@@ -3,11 +3,10 @@ import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
+import tensorflow_text
 from flask import Flask
 from flask import request
-import os
-import subprocess
-import sentencepiece
+
 
 app = Flask(__name__)
 
@@ -16,22 +15,21 @@ print("Loading Models. This could take some time")
 entity_extractor = spacy.load("./server/spacy/output")
 
 # Load word embedder
-# Heroku specific stuff
-# TODO: This is really sketchy. I'm sure there's a better way
-# p = '/app/use_model'
-# if not os.path.exists(p) :
-#     os.mkdir(p)
-#     print("Downloading Universal Sentence Encoder Model")
-#     subprocess.call("curl -L \"https://tfhub.dev/google/universal-sentence-encoder/2?tf-hub-format=compressed\" | tar -zxvC /app/use_model", shell=True)
-# word_embedder = hub.load("https://tfhub.dev/google/universal-sentence-encoder/2")
-with tf.Session() as sess:
-  module = hub.Module("https://tfhub.dev/google/universal-sentence-encoder-lite/2")
-  spm_path = sess.run(module(signature="spm_path"))
-  # spm_path now contains a path to the SentencePiece model stored inside the
-  # TF-Hub module
-
-sp = spm.SentencePieceProcessor()
-word_embedder = sp.Load(spm_path)
+text_input = tf.constant(["(your text here)"])
+print(text_input)
+preprocessor = hub.KerasLayer(
+    "https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3")
+encoder_inputs = preprocessor(text_input)
+encoder = hub.KerasLayer(
+    "https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-128_A-2/2",
+    trainable=True)
+s = time.perf_counter()
+outputs = encoder(encoder_inputs)
+print(time.perf_counter()-s)
+pooled_output = outputs["pooled_output"]      # [batch_size, 512].
+sequence_output = outputs["sequence_output"]  # [batch_size, seq_length, 512].
+print(pooled_output)
+print(sequence_output)
 
 print("Models loaded")
 
