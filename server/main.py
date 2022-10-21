@@ -47,7 +47,6 @@ print("Server Initialized Successfully")
 
 @app.route("/")
 def default():
-    print("MESSAGE RECEIEVED")
     return "Server Ack\n"
 
 @app.route('/parse-cmd', methods=['POST'])
@@ -69,11 +68,8 @@ def parse_cmd():
             if ent.label_ == 'FUNC' :
                 # Find func enum that best matches extracted func phrase
                 best_dist = 0.5
-                print(ent.text)
                 for func in funcs :
                     dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
-                    print(func)
-                    print(dist)
                     if best_dist < dist :
                         elt['FUNC'] = func
                         best_dist = dist
