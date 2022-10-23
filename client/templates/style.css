@@ -23,7 +23,7 @@ ul {
     position:relative;
     width: 1020px;
     height: 720px;
-    background-color: bisque;
+    background-color: rgb(0, 39, 76);
     box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -47,10 +47,13 @@ ul {
     padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px;
-    height: auto;
-    width: auto;
+    font-weight: bolder;
+    font-size: x-large;
+    height: 80%;
+    width: 80%;
     background-color: rgb(253, 253, 253);
     border: none;
+    overflow: auto;
 }
 
 .mic-button {
@@ -59,12 +62,12 @@ ul {
     left: 435px;
     width: 50px;
     height: 50px;
-    background-color: rgb(167, 146, 121);
+    background-color: rgb(255, 203, 5);
     border-radius: 25px;
 }
 
 .mic-button:hover {
-    background-color: rgb(128, 112, 92);
+    background-color: rgb(191, 153, 0);
 }
 
 .profile-button {
@@ -73,12 +76,12 @@ ul {
     left: 435px;
     width: 50px;
     height: 50px;
-    background-color: rgb(167, 146, 121);
+    background-color: rgb(255, 203, 5);
     border-radius: 25px;
 }
 
 .profile-button:hover {
-    background-color: rgb(128, 112, 92);
+    background-color: rgb(191, 153, 0);
 }
 
 .generation-window {
@@ -87,7 +90,7 @@ ul {
     left: 5px;
     width: 500px;
     height: 500px;
-    background-color: rgb(167, 146, 121);
+    background-color: rgb(255, 203, 5);
     border-radius: 20px;
     overflow: auto;
 }
@@ -98,23 +101,49 @@ ul {
     left: 515px;
     width: 500px;
     height: 710px;
-    background-color: rgb(167, 146, 121);
+    background-color: rgb(255, 203, 5);
     border-radius: 20px;
     overflow: auto;
 }
 
 .vocab-pair {
     width: auto;
-    height: 50px;
+    height: 70px;
     border-radius: 5px;
     margin-top: 3px;
     margin-bottom: 3px;
     margin-left: 3px;
     margin-right: 3px;
-    background-color: aquamarine;
+    background-color: rgb(0, 39, 76);
+    font-weight: bolder;
+    font-size: larger;
+    text-align: center;
+    color: rgb(255, 203, 5);
 }
 
 .vocab-pair:hover {
-    background-color: blueviolet;
+    background-color: rgb(0, 88, 170);
+}
+
+.source-text-box {
+    overflow: auto;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 42%;
+    height: 64px;
+}
+
+.trans-text-box {
+    overflow: auto;
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 42%;
+    height: 64px;
 }
 

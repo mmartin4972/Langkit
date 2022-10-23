@@ -1,14 +1,71 @@
-// Onclick of the button
-document.querySelector("button").onclick = function () {  
-  // Call python's random_python function
-  eel.random_python()(function(number){                      
-    // Update the div with a random number returned by python
-    document.querySelector(".random_number").innerHTML = number;
-  })
-}
-
 function mic_click () {
   console.log("Clicked the Mic button");
 
-  eel.mic_click();
+  eel.mic_click()(mic_click_callback);
+}
+
+function mic_click_callback (str) {
+  document.getElementById("response-window-text-box").value = str;
+
+  generate_phrases_from_text(str);
+}
+
+function add_to_global_list (pair) {
+  let globalList = document.getElementById("global-vocab-list");
+
+  let newChild = document.createElement("li");
+
+  newChild.setAttribute("class", "vocab-pair");
+
+  let sourceDiv = document.createElement("div");
+  let transDiv = document.createElement("div");
+  sourceDiv.setAttribute("class", "source-text-box");
+  transDiv.setAttribute("class", "trans-text-box");
+  sourceDiv.innerHTML = pair[0]
+  transDiv.innerHTML = pair[1]
+
+  newChild.appendChild(sourceDiv);
+  newChild.appendChild(transDiv);
+
+  globalList.appendChild(newChild);
+}
+
+async function get_translated_list (list) {
+  return eel.quick_translate(list)();
+}
+
+function generate_phrases_from_text (str) {
+  const words = str.split(' ');
+
+  let generatedList = document.getElementById("generated-vocab-list");
+
+  while (generatedList.firstChild) {
+    generatedList.removeChild(generatedList.firstChild);
+  }
+
+  for (let i = 0; i < words.length; i++) {
+    let translatedWord = eel.quick_translate_word(words[i])();
+    console.log("Possible Bottleneck: ", i);
+    let newChild = document.createElement("li");
+
+    newChild.setAttribute("class", "vocab-pair");
+
+    let pair = [words[i], translatedWord];
+
+    newChild.addEventListener('click', function () {
+      add_to_global_list(pair)
+    });
+
+    let sourceDiv = document.createElement("div");
+    let transDiv = document.createElement("div");
+    sourceDiv.setAttribute("class", "source-text-box");
+    transDiv.setAttribute("class", "trans-text-box");
+    sourceDiv.innerHTML = words[i]
+    transDiv.innerHTML = translatedWord;
+
+    newChild.appendChild(sourceDiv);
+    newChild.appendChild(transDiv);
+
+    generatedList.appendChild(newChild);
+  }
 }

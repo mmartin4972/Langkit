@@ -13,41 +13,15 @@
     <div class="container">
         <div class="page">
             <div class="response-window">
-              <textarea class="response-window-text-box">WORDS</textarea>
+              <textarea class="response-window-text-box" id="response-window-text-box">WORDS</textarea>
             </div>
             <button class="mic-button" id="mic_btn" onclick="mic_click()"></button>
             <button class="profile-button" id="profile_btn" onclick="mic_click()"></button>
             <div class="generation-window">
-              <ul>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-              </ul>
+              <ul id="generated-vocab-list" style="list-style:none;"></ul>
             </div>
             <div class="global-window">
-              <ul>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-                <li class="vocab-pair">WORDS</li>
-              </ul>
+              <ul id="global-vocab-list" style="list-style:none;"></ul>
             </div>
         </div>
     </div>
