@@ -31,11 +31,12 @@ function add_to_global_list (pair) {
 }
 
 async function get_translated_list (list) {
-  return eel.quick_translate(list)();
+  return eel.quick_translate_list(list)();
 }
 
-function generate_phrases_from_text (str) {
+async function generate_phrases_from_text (str) {
   const words = str.split(' ');
+  let translations = await get_translated_list(words);
 
   let generatedList = document.getElementById("generated-vocab-list");
 
@@ -44,13 +45,11 @@ function generate_phrases_from_text (str) {
   }
 
   for (let i = 0; i < words.length; i++) {
-    let translatedWord = eel.quick_translate_word(words[i])();
-    console.log("Possible Bottleneck: ", i);
     let newChild = document.createElement("li");
 
     newChild.setAttribute("class", "vocab-pair");
 
-    let pair = [words[i], translatedWord];
+    let pair = [words[i], translations[i]];
 
     newChild.addEventListener('click', function () {
       add_to_global_list(pair)
@@ -61,7 +60,7 @@ function generate_phrases_from_text (str) {
     sourceDiv.setAttribute("class", "source-text-box");
     transDiv.setAttribute("class", "trans-text-box");
     sourceDiv.innerHTML = words[i]
-    transDiv.innerHTML = translatedWord;
+    transDiv.innerHTML = translations[i];
 
     newChild.appendChild(sourceDiv);
     newChild.appendChild(transDiv);

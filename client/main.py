@@ -1,33 +1,27 @@
 import eel
 from os import path
-from random import randint
 import speech_recognition as sr
-from googletrans import Translator
+import translators as tr
 
 eel.init(f'{path.dirname(path.realpath(__file__))}/templates')  
   
 @eel.expose
-def quick_translate_list(s):
-    tr = Translator()
+def quick_translate_list(s: list) -> list:
+    return [tr.google(w, from_language='en', to_language='es') for w in s]
 
-    return [tr.translate(w, dest="fi") for w in s.split(' ')]
-
-@eel.expose
-def quick_translate_word(s):
-    tr = Translator()
-
-    return tr.translate(s)
 
 @eel.expose
-def mic_click():
+def quick_translate_word(w: str) -> str:
+    return tr.google(w, from_language='en', to_language='es')
+
+
+@eel.expose
+def mic_click() -> str:
     r = sr.Recognizer()
     try:
         with sr.Microphone() as source:
-             
             r.adjust_for_ambient_noise(source, duration=0.2)
-             
             audio = r.listen(source)
-
             return r.recognize_google(audio)
              
     except sr.RequestError as e:
