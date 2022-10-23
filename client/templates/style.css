@@ -14,13 +14,15 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: hidden;
+    overflow-x: hidden;
     padding: 0px 0px;
 }
 
 .page {
     position:relative;
-    width: 1000px;
-    height: 640px;
+    width: 1020px;
+    height: 720px;
     background-color: bisque;
     box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
@@ -29,39 +31,90 @@ ul {
     position: absolute;
     top: 5px;
     left: 5px;
-    width: 320px;
-    height: 210px;
-    background-color: rgb(167, 146, 121);
-    border-radius: 20px;
+    width: 400px;
+    height: 200px;
+    background-color: rgb(253, 253, 253);
+    border-radius: 18px;
 }
 
-.microphone-button {
+.response-window-text-box {
     position: absolute;
-    top: 5px;
-    left: 335px;
-    width: 210px;
-    height: 210px;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: auto;
+    width: auto;
+    background-color: rgb(253, 253, 253);
+    border: none;
+}
+
+.mic-button {
+    position: absolute;
+    top: 30px;
+    left: 435px;
+    width: 50px;
+    height: 50px;
     background-color: rgb(167, 146, 121);
-    border-radius: 20px;
+    border-radius: 25px;
+}
+
+.mic-button:hover {
+    background-color: rgb(128, 112, 92);
+}
+
+.profile-button {
+    position: absolute;
+    top: 130px;
+    left: 435px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(167, 146, 121);
+    border-radius: 25px;
+}
+
+.profile-button:hover {
+    background-color: rgb(128, 112, 92);
 }
 
 .generation-window {
     position: absolute;
-    top: 225px;
+    top: 215px;
     left: 5px;
-    width: 540px;
-    height: 410px;
+    width: 500px;
+    height: 500px;
     background-color: rgb(167, 146, 121);
     border-radius: 20px;
+    overflow: auto;
 }
 
 .global-window {
     position: absolute;
     top: 5px;
-    left: 555px;
-    width: 440px;
-    height: 630px;
+    left: 515px;
+    width: 500px;
+    height: 710px;
     background-color: rgb(167, 146, 121);
     border-radius: 20px;
+    overflow: auto;
+}
+
+.vocab-pair {
+    width: auto;
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-color: aquamarine;
+}
+
+.vocab-pair:hover {
+    background-color: blueviolet;
 }
 

@@ -17,4 +17,4 @@ def mic_click():
 
   
 # Start the index.html file
-eel.start("index.html", size=(1000, 665), port=8080)
+eel.start("index.html", size=(1020, 750), port=8080)
