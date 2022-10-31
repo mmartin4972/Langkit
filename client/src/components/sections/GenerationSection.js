@@ -146,7 +146,7 @@ async function get_generated_set_from_prompt () {
       child = e.lastElementChild;
   }
 
-  await fetch("/demo", {
+  await fetch("/demo2", {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
