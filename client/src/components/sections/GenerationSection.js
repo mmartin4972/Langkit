@@ -64,6 +64,7 @@ const GenerationSection = ({
             <div className="button-ctr" onClick={get_generated_set_from_prompt}>Generate</div>
             <div className="grid-ctr">
               <div className="basic-grid" id="generated-vocab">
+              
               </div>
             </div>
             <label className='grid-ctr-label' id="generated-label">Generated Vocabulary</label>
@@ -82,13 +83,16 @@ function add_to_global_window (pair) {
 
   let newDiv = document.createElement("div");
   let rDiv = document.createElement("div");
+  let mDiv = document.createElement("div");
   let lDiv = document.createElement("div");
   rDiv.setAttribute("id", 'trn');
+  mDiv.setAttribute("id", "mid");
   lDiv.setAttribute("id", 'src');
   rDiv.innerHTML = pair[0];
   lDiv.innerHTML = pair[1];
 
   newDiv.appendChild(lDiv);
+  newDiv.appendChild(mDiv);
   newDiv.appendChild(rDiv);
 
   list.appendChild(newDiv);
@@ -99,13 +103,16 @@ function add_to_generation_window (pair) {
 
   let newDiv = document.createElement("div");
   let rDiv = document.createElement("div");
+  let mDiv = document.createElement("div");
   let lDiv = document.createElement("div");
   rDiv.setAttribute("id", 'trn');
+  mDiv.setAttribute("id", "mid");
   lDiv.setAttribute("id", 'src');
   rDiv.innerHTML = pair[0];
   lDiv.innerHTML = pair[1];
 
   newDiv.appendChild(lDiv);
+  newDiv.appendChild(mDiv);
   newDiv.appendChild(rDiv);
 
   newDiv.addEventListener('click', function () {
