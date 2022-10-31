@@ -80,3 +80,35 @@ def parse_cmd():
         res.append(elt)
 
     return res
+
+@app.route('/test', methods=['POST'])
+def test():
+    cmds = request.json
+    res = []
+    for cmd in cmds:
+        print(cmd)
+        ents = extract_entities(cmd['cmd'])
+
+        elt = {
+            'FUNC':'UNKNOWN',
+            'PARAM':''
+        }
+        
+        # Look through found entities to populate elt
+        for ent in ents :
+            
+            if ent.label_ == 'FUNC' :
+                # Find func enum that best matches extracted func phrase
+                best_dist = 0.5
+                for func in funcs :
+                    dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
+                    if best_dist < dist :
+                        elt['FUNC'] = func
+                        best_dist = dist
+
+            elif ent.label_ == 'PARAM' :
+                elt['PARAM'] = ent.text  
+
+        res.append(elt)
+
+    return res

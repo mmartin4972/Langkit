@@ -63,7 +63,7 @@ const GenerationSection = ({
               <input type="text" id="prompt" className="form__input" autoCorrect="off" placeholder=" "/>
               <label for="prompt" className="form__label">Prompt</label>
             </div>
-            <div className="button-ctr" onClick={add_demo_stuff}>Generate</div>
+            <div className="button-ctr" onClick={get_generated_set_from_prompt}>Generate</div>
             <div className="grid-ctr">
               <div className="basic-grid" id="generated-vocab">
               </div>
@@ -127,7 +127,24 @@ function add_demo_stuff() {
   add_to_generation_window(["Coffee", "Café"]);
 }
 
+async function get_generated_set_from_prompt () {
+  const data = [
+    {'cmd': document.getElementById("prompt").value.toString()}
+  ];
 
+  console.log("DATA TO BE SENT: ", data);
+
+  let rawResponse = await fetch("/parse-cmd", {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  console.log(rawResponse.json());
+}
 /*
 document.addEventListener('keypress', async function (event) {
   var name = event.key;
