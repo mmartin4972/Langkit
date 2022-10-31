@@ -131,24 +131,28 @@ def demo ():
             elif ent.label_ == 'PARAM' :
                 elt['PARAM'] = ent.text  
     
-    for e in elt:
-        if e['FUNC'] == 'TRANS':
-            res.append({e['PARAM'], quick_translate(e['PARAM'])})
-        elif e['FUNC'] == 'GEN_WORD':
-            res.append({'SRC':'coffee','TRN':'café'})
-            res.append({'SRC':'a rich, dark roast','TRN':'Un tostado rico y oscuro'})
-            res.append({'SRC':'a bright, light roast','TRN':'Un tostado brillante y ligero'})
-            res.append({'SRC':'a smooth, rich coffee','TRN':'Un café rico y suave'})
-            res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
-            res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
-        elif['FUNC'] == 'GEN_PHRASE':
-            res.append({'SRC':'coffee','TRN':'café'})
-            res.append({'SRC':'a rich, dark roast','TRN':'Un tostado rico y oscuro'})
-            res.append({'SRC':'a bright, light roast','TRN':'Un tostado brillante y ligero'})
-            res.append({'SRC':'a smooth, rich coffee','TRN':'Un café rico y suave'})
-            res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
-            res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
-        elif['FUNC'] == 'UNKNOWN':
-            pass
+    if elt['FUNC'] == 'TRANS':
+        res.append({elt['PARAM'], quick_translate(elt['PARAM'])})
+    elif elt['FUNC'] == 'GEN_WORD':
+        res.append({'SRC':'coffee','TRN':'café'})
+        res.append({'SRC':'a rich, dark roast','TRN':'Un tostado rico y oscuro'})
+        res.append({'SRC':'a bright, light roast','TRN':'Un tostado brillante y ligero'})
+        res.append({'SRC':'a smooth, rich coffee','TRN':'Un café rico y suave'})
+        res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
+        res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
+    elif elt['FUNC'] == 'GEN_PHRASE':
+        res.append({'SRC':'coffee','TRN':'café'})
+        res.append({'SRC':'a rich, dark roast','TRN':'Un tostado rico y oscuro'})
+        res.append({'SRC':'a bright, light roast','TRN':'Un tostado brillante y ligero'})
+        res.append({'SRC':'a smooth, rich coffee','TRN':'Un café rico y suave'})
+        res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
+        res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
+    elif elt['FUNC'] == 'UNKNOWN':
+        res.append({'SRC':'coffee','TRN':'café'})
+        res.append({'SRC':'a rich, dark roast','TRN':'Un tostado rico y oscuro'})
+        res.append({'SRC':'a bright, light roast','TRN':'Un tostado brillante y ligero'})
+        res.append({'SRC':'a smooth, rich coffee','TRN':'Un café rico y suave'})
+        res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
+        res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
 
     return res
