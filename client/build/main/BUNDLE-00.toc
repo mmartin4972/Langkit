@@ -1,3 +1,0 @@
-([('main',
-   '/Users/carson/Desktop/449repo/Langkit/demo-py-gui/dist/main',
-   'EXECUTABLE')],)
