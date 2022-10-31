@@ -8,4 +8,4 @@ tqdm==4.64.1
 spacy==2.3.8
 gunicorn==20.1.0
 sentencepiece==0.1.97
-translators==5.4.6
+translators==5.4.8
