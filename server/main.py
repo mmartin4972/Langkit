@@ -113,6 +113,9 @@ def demo2():
                 res.append({'SRC':'pineapple','TRN':'piña'})
                 res.append({'SRC':'plum','TRN':'ciruela'})
                 res.append({'SRC':'banana','TRN':'plátano'})
+            if ent.text == "artificial":
+                res.append({'SRC':'artificial intelligence','TRN':'inteligencia artificial'})
+
     return res
 
 def quick_translate(w: str) -> str:
