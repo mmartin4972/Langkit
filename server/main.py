@@ -106,7 +106,7 @@ def demo2():
                 res.append({'SRC':'Follow your heart','TRN':'Sigue a tu corazón'})
                 res.append({'SRC':'Believe in yourself.','TRN':'Creer en tu mismo'})
                 break
-            if ent.text == "fruits":
+            if ent == "fruits":
                 res.append({'SRC':'apple','TRN':'manzana'})
                 res.append({'SRC':'orange','TRN':'naranja'})
                 res.append({'SRC':'watermelon','TRN':'sandía'})
