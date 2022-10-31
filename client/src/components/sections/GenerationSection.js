@@ -3,8 +3,6 @@ import classNames from 'classnames';
 import { SectionTilesProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
 
-const prodURL = 'https://langkit-prod.herokuapp.com/parse-cmd'
-
 const propTypes = {
   ...SectionTilesProps.types
 }
@@ -134,7 +132,7 @@ async function get_generated_set_from_prompt () {
 
   console.log("DATA TO BE SENT: ", data);
 
-  let rawResponse = await fetch("/parse-cmd", {
+  let rawResponse = await fetch("/test", {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",

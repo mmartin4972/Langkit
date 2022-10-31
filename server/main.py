@@ -81,34 +81,18 @@ def parse_cmd():
 
     return res
 
-@app.route('/test', methods=['POST'])
-def test():
+@app.route('/demo', methods=['POST'])
+def demo():
     cmds = request.json
     res = []
     for cmd in cmds:
-        print(cmd)
-        ents = extract_entities(cmd['cmd'])
-
-        elt = {
-            'FUNC':'UNKNOWN',
-            'PARAM':''
-        }
-        
-        # Look through found entities to populate elt
-        for ent in ents :
-            
-            if ent.label_ == 'FUNC' :
-                # Find func enum that best matches extracted func phrase
-                best_dist = 0.5
-                for func in funcs :
-                    dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
-                    if best_dist < dist :
-                        elt['FUNC'] = func
-                        best_dist = dist
-
-            elif ent.label_ == 'PARAM' :
-                elt['PARAM'] = ent.text  
-
-        res.append(elt)
-
+        for ent in extract_entities(cmd['cmd']):
+            if ent.text == "coffee":
+                res.append({'SRC':'coffee','TRN':'café'})
+                res.append({'SRC':'a rich, dark roast','TRN':'Un tostado rico y oscuro'})
+                res.append({'SRC':'a bright, light roast','TRN':'Un tostado brillante y ligero'})
+                res.append({'SRC':'a smooth, rich coffee','TRN':'Un café rico y suave'})
+                res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
+                res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
+                break
     return res
