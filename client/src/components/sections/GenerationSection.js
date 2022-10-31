@@ -139,6 +139,13 @@ async function get_generated_set_from_prompt () {
 
   console.log("DATA TO BE SENT: ", data);
 
+  let e = document.getElementById("generated-vocab");
+  var child = e.lastElementChild; 
+  while (child) {
+      e.removeChild(child);
+      child = e.lastElementChild;
+  }
+
   await fetch("/demo", {
     method: 'POST',
     headers: {

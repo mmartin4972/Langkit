@@ -97,6 +97,22 @@ def demo2():
                 res.append({'SRC':'fruity flavor','TRN':'sabor afrutado'})
                 res.append({'SRC':'I love a cup of coffee','TRN':'me encanta una taza de cafe'})
                 break
+            if ent.text == "life":
+                res.append({'SRC':'life','TRN':'la vida'})
+                res.append({'SRC':'advice','TRN':'consejo'})
+                res.append({'SRC':'Attitude is everything','TRN':'Actitud es todo'})
+                res.append({'SRC':'You only live once','TRN':'sólo se vive una vez'})
+                res.append({'SRC':'Life is what you make it','TRN':'La vida es lo que tu haces de ella'})
+                res.append({'SRC':'Follow your heart','TRN':'Sigue a tu corazón'})
+                res.append({'SRC':'Believe in yourself.','TRN':'Creer en tu mismo'})
+                break
+            if ent.text == "fruits":
+                res.append({'SRC':'apple','TRN':'manzana'})
+                res.append({'SRC':'orange','TRN':'naranja'})
+                res.append({'SRC':'watermelon','TRN':'sandía'})
+                res.append({'SRC':'pineapple','TRN':'piña'})
+                res.append({'SRC':'plum','TRN':'ciruela'})
+                res.append({'SRC':'banana','TRN':'plátano'})
     return res
 
 def quick_translate(w: str) -> str:
