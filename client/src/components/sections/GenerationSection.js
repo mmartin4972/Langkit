@@ -132,16 +132,21 @@ async function get_generated_set_from_prompt () {
 
   console.log("DATA TO BE SENT: ", data);
 
-  let rawResponse = await fetch("/test", {
+  await fetch("/demo", {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },
     body: JSON.stringify(data)
-  });
+  }).then((res) => res.json()).then( (res2) => {
+    var obj = JSON.parse(JSON.stringify(res2));
+    for (let i = 0; i < Object.keys(obj).length; i++) {
+      add_to_generation_window([res2[i]['SRC'], res2[i]['TRN']]);
+    }
+  }
+  );
 
-  console.log(rawResponse.json());
 }
 /*
 document.addEventListener('keypress', async function (event) {
