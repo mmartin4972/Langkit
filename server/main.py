@@ -8,6 +8,9 @@ from flask import Flask
 from flask import request
 from word_embedding.word_embedder import WordEmbedder
 
+# Comment to practice branch merging
+
+
 app = Flask(__name__)
 
 print("Loading Models. This could take some time")
