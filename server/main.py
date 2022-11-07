@@ -50,6 +50,35 @@ print("Server Initialized Successfully")
 def default():
     return "Server Ack\n"
 
+
+def extract_func_param_pair(cmds: any):
+    res = []
+    for cmd in cmds :
+        print(cmd)
+        ents = extract_entities(cmd['cmd'])
+
+        elt = {
+            'FUNC':'UNKNOWN',
+            'PARAM':''
+        }
+        
+        # Look through found entities to populate elt
+        for ent in ents :
+            
+            if ent.label_ == 'FUNC' :
+                # Find func enum that best matches extracted func phrase
+                best_dist = 0.5
+                for func in funcs :
+                    dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
+                    if best_dist < dist :
+                        elt['FUNC'] = func
+                        best_dist = dist
+
+            elif ent.label_ == 'PARAM' :
+                elt['PARAM'] = ent.text  
+    return elt
+
+
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd():
     cmds = request.json
@@ -118,9 +147,16 @@ def demo2():
 
     return res
 
+@app.route('./naive_gpt3_res', methods=['POST'])
+def naive_gtp3_res():
+    cmds = request.json
+
+
+
 def quick_translate(w: str) -> str:
     s = tr.google(w, from_language='en', to_language='es')
     return s
+
 
 @app.route('/demo', methods=['POST'])
 def demo ():
