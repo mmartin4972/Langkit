@@ -3,3 +3,4 @@ demo/build
 demo/dist
 server/__pycache__
 __pycache__
+*credentials*

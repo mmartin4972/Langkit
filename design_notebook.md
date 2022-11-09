@@ -82,4 +82,11 @@
 - Project ID: langkit-368114
 - Need to enable Google IAM which supplies Service Accounts and then create key pair with service accounts for credentials
 - This guide is really helpful for then creating service accounts and API keys: https://cloud.google.com/translate/docs/setup
-- 
+
+## Newlines in Credential Files
+- I was running into a serious issue when deploying to Heroku because Google sucks and don't just read their API key from an env variable but from a file
+- To solve this problem I ended up following this article: https://www.yeti.co/blog/authorizing-google-cloud-platform-service-accounts-from-a-docker-container-running-in-heroku
+- However, I didn't realize that in the process of echoing out the credential json from an environment variable to a file all of the newlines were being removed, and the newline characters are required in the private rsa key.
+- To solve this problem I added an extra backslash in front of each of the \n, so that it wasn't rendered as a newline and so that all newlines in the actual private_key are not being filtered out
+- https://unix.stackexchange.com/questions/164508/why-do-newline-characters-get-lost-when-using-command-substitution
+
