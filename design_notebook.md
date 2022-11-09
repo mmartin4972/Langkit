@@ -74,3 +74,12 @@
     - excetuable to executable
 - *Register Sentinel* examples under action modules Jaseci actions is incorrect
 
+## Google Translate API
+- Google has Automatic Credential Detection
+- It requires a CLI tool be installed on your local dev environment, and then uses the CLI to log you in and set the environment variables: https://cloud.google.com/docs/authentication/provide-credentials-adc#local-dev
+- For Google translate you have to explicitly activate the API here: https://cloud.google.com/translate/docs/setup
+- You have to have Billing enabled in order for the Cloud Translation API to work properly and do so by linking a Billing account
+- Project ID: langkit-368114
+- Need to enable Google IAM which supplies Service Accounts and then create key pair with service accounts for credentials
+- This guide is really helpful for then creating service accounts and API keys: https://cloud.google.com/translate/docs/setup
+- 
