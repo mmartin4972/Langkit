@@ -13,6 +13,14 @@ print("Loading Models. This could take some time")
 # Load entity extractor
 entity_extractor = spacy.load("./spacy/output")
 
+# Hack for Creating Google Credentials From Env Variable
+print("Doing Credential stuff\n")
+contents = os.getenv('GOOGLE_CREDENTIALS')
+f = open("/app/cred.json", "w")
+f.write(contents)
+f.close()
+print("Got contents: ", contents)
+
 def extract_entities(phrase:str) :
     return entity_extractor(phrase).ents
 
