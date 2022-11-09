@@ -90,3 +90,7 @@
 - To solve this problem I added an extra backslash in front of each of the \n, so that it wasn't rendered as a newline and so that all newlines in the actual private_key are not being filtered out
 - https://unix.stackexchange.com/questions/164508/why-do-newline-characters-get-lost-when-using-command-substitution
 
+## Adding Google Credentials
+- To add Google credentials to your local environment, go to the Heroku application and copy the environment variable text into a local environment into an environment variable of the same name
+- Run the translate/add-google-creds.sh file to create the credentials.json
+- Set the GOOGLE_APPLICATION_CREDENTIALS environment variable to point at credentials.json
