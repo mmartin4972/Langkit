@@ -6,18 +6,13 @@ import tensorflow_hub as hub
 from flask import Flask
 from flask import request
 from word_embedding.word_embedder import WordEmbedder
-import os
-import json
+from translate.translate import translate_text
 
 app = Flask(__name__)
 
 print("Loading Models. This could take some time")
 # Load entity extractor
 entity_extractor = spacy.load("./spacy/output")
-
-# Hack for Creating Google Credentials From Env Variable
-# print("Doing Credential stuff\n")
-# print("Got contents: ", contents)
 
 def extract_entities(phrase:str) :
     return entity_extractor(phrase).ents
@@ -92,6 +87,11 @@ def naive_gtp3_res():
     cmds = request.json
 
 @app.route('/translate', methods=['POST'])
-def quick_translate(w: str) -> str:
-    s = tr.google(w, from_language='en', to_language='es')
-    return s
+def quick_translate():
+    print("Got request ", request.json)
+    res = []
+    for req in request.json :
+        s = translate_text(req['to'], req['text'])
+        res.append(s)
+        print(s)
+    return res

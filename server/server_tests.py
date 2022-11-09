@@ -1,6 +1,6 @@
 import requests
 
-local_url = 'http://127.0.0.1:9000/parse-cmd'
+local_url = 'http://127.0.0.1:3000'
 prod_url = 'https://langkit-prod.herokuapp.com/parse-cmd'
 data = [
     {'cmd': 'Generate me phrases about a dinner party'},
@@ -11,5 +11,12 @@ data = [
 ]
 headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
 
-res = requests.post(prod_url, json=data).json()
+res = requests.post(local_url + "/parse-cmd", json=data).json()
 print(res)
+
+data1 = [
+    {"from": "en", "to": "es", "text": "my name is linus"}
+]
+res1 = requests.post(local_url + "/translate", json=data1).json()
+print(res1[0])
+
