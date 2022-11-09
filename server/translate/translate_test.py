@@ -9,9 +9,9 @@ def translate_text(target, text):
     import os
     import json
     
-    cred = json.loads(os.getenv('GOOGLE_CREDENTIALS'))
-    print(cred)
-    translate_client = translate.Client(cred)
+    # cred = json.loads(os.getenv('GOOGLE_CREDENTIALS'))
+    # print(cred)
+    translate_client = translate.Client()
 
     if isinstance(text, six.binary_type):
         text = text.decode("utf-8")
