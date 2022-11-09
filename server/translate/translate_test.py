@@ -6,8 +6,12 @@ def translate_text(target, text):
     """
     import six
     from google.cloud import translate_v2 as translate
-
-    translate_client = translate.Client()
+    import os
+    import json
+    
+    cred = json.loads(os.getenv('GOOGLE_CREDENTIALS'))
+    print(cred)
+    translate_client = translate.Client(cred)
 
     if isinstance(text, six.binary_type):
         text = text.decode("utf-8")
