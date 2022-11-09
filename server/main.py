@@ -6,7 +6,7 @@ import tensorflow_hub as hub
 from flask import Flask
 from flask import request
 from word_embedding.word_embedder import WordEmbedder
-import os
+# import os
 
 app = Flask(__name__)
 
@@ -15,12 +15,9 @@ print("Loading Models. This could take some time")
 entity_extractor = spacy.load("./spacy/output")
 
 # Hack for Creating Google Credentials From Env Variable
-print("Doing Credential stuff\n")
-contents = os.getenv('GOOGLE_CREDENTIALS')
-f = open("./google-cred.json", "w+")
-f.write(contents)
-f.close()
-print("Got contents: ", contents)
+# print("Doing Credential stuff\n")
+# contents = os.getenv('GOOGLE_CREDENTIALS')
+# print("Got contents: ", contents)
 
 def extract_entities(phrase:str) :
     return entity_extractor(phrase).ents
