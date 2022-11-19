@@ -3,10 +3,23 @@ import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
+<<<<<<< HEAD
 from flask import Flask
 from flask import request
+=======
+import translators as tr
+from flask import Flask, request, jsonify
+>>>>>>> 3abb4068 (removed the old client)
 from word_embedding.word_embedder import WordEmbedder
 from translate.translate import translate_text
+
+
+## This pertains to the MySQL DB
+db_name = 'langkit-db'
+
+
+
+
 
 app = Flask(__name__)
 
@@ -95,3 +108,55 @@ def quick_translate():
         res.append(s)
         print(s)
     return res
+
+
+
+@app.route('/user/init', methods=['POST'])
+def user_init():
+    req = request.json
+
+    new_user = [req[0]['username'], req[0]['email']]
+
+    print(new_user)
+
+
+def get_user_topics (user: str):
+    return jsonify({
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+    })
+
+@app.route('/user/topics', methods=['GET'])
+def user_get_topics():
+    req = request.json
+
+    username = req[0]['username']
+
+    # Fake DB Request
+    # After db is up this should be made using the username from the request
+
+    if request.method == 'GET':
+        return jsonify(
+            topicname='Gerald',
+            topiclist=get_user_topics(username)
+        )
+
+    return jsonify(
+        topicname='Gerald',
+        topiclist=get_user_topics(username)
+    )
+
