@@ -108,6 +108,42 @@ def quick_translate():
 def data_endpoint():
     data = request.json
 
+    if request.method == 'POST':
+        type = data[0]['request-type']
+
+        if type == 'init-user':
+            username = data[0]['username']
+            password = data[0]['password']
+            topic_list = db_handler.get_topics(username)
+    elif request.method == 'GET':
+        if type == 'user-topics':
+            username = data[0]['username']
+            topic_list = db_handler.get_topics(username)
+
+            r_list = []
+            for i in topic_list:
+                r_list.append({ 'name': i})
+
+            return r_list
+        if type == 'get-topic':
+            username = data[0]['username']
+            topic_name = data[0]['topic-name']
+            topic = db_handler.get_topic(username, topic_name)
+
+            r_list = []
+            for i in topic:
+                r_list.append({{ 'source', i[0]}, { 'translation', i[1]}})
+            
+            return r_list
+
+    else:
+        return []
+
+
+@app.route('/cmd', methods=['POST', 'GET'])
+def cmd_endpoint():
+    data = request.json
+
     if request.method == 'GET':
         type = data[0]['request-type']
 
@@ -118,9 +154,9 @@ def data_endpoint():
         if type == 'user-topics':
             username = data[0]['username']
             topic_list = db_handler.get_topics(username)
-
     else:
         return
+
 
 
 @app.route('/user/init', methods=['POST'])
@@ -128,9 +164,6 @@ def user_init():
     req = request.json
     new_user = [req[0]['username'], req[0]['password']]
     db_handler.add_user(new_user[0], new_user[1])
-
-
-@app.route('/user/topics')
 
 
 def get_user_topics (user: str):
