@@ -1,6 +1,7 @@
 .env
-demo/build
-demo/dist
+client/node_modules
+client/build
+client/dist
 server/__pycache__
 __pycache__
 *credentials*
