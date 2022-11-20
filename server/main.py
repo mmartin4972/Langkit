@@ -3,22 +3,15 @@ import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
-<<<<<<< HEAD
-from flask import Flask
-from flask import request
-=======
 import translators as tr
 from flask import Flask, request, jsonify
->>>>>>> 3abb4068 (removed the old client)
 from word_embedding.word_embedder import WordEmbedder
 from translate.translate import translate_text
+from database.handler import handler
 
+db_name = 'local_langkit.db'
 
-## This pertains to the MySQL DB
-db_name = 'langkit-db'
-
-
-
+db_handler = handler(db_name)
 
 
 app = Flask(__name__)
@@ -99,6 +92,7 @@ def parse_cmd():
 def naive_gtp3_res():
     cmds = request.json
 
+
 @app.route('/translate', methods=['POST'])
 def quick_translate():
     print("Got request ", request.json)
@@ -110,14 +104,33 @@ def quick_translate():
     return res
 
 
+@app.route('/data', methods=['POST', 'GET'])
+def data_endpoint():
+    data = request.json
+
+    if request.method == 'GET':
+        type = data[0]['request-type']
+
+        if type == 'user-topics':
+            username = data[0]['username']
+            topic_list = db_handler.get_topics(username)
+    elif request.method == 'POST':
+        if type == 'user-topics':
+            username = data[0]['username']
+            topic_list = db_handler.get_topics(username)
+
+    else:
+        return
+
 
 @app.route('/user/init', methods=['POST'])
 def user_init():
     req = request.json
+    new_user = [req[0]['username'], req[0]['password']]
+    db_handler.add_user(new_user[0], new_user[1])
 
-    new_user = [req[0]['username'], req[0]['email']]
 
-    print(new_user)
+@app.route('/user/topics')
 
 
 def get_user_topics (user: str):
