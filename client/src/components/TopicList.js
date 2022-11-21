@@ -25,7 +25,7 @@ async function getUserTopics(userName) {
       the_list.push(res2[i]['name']);
     }
   }
-  );
+  ).catch((error) => {return [{'name': 'Fruit'}]});
 
   return the_list;
 }
@@ -36,8 +36,9 @@ function TopicList (props) {
   useEffect(() => {
     let t = getUserTopics(props.userName);
     console.log(t);
+    console.log(topics);
     setTopics(t);
-  }, [props.userName]);
+  }, [props.userName, topics]);
 
   return (
     <>

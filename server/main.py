@@ -114,6 +114,14 @@ def quick_translate():
 @app.route('/data', methods=['POST', 'GET'])
 def data_endpoint():
     data = request.json
+    username = data[0]['username']
+    topic_list = db_handler.get_topics(username)
+
+    r_list = []
+    for i in topic_list:
+        r_list.append({ 'name': i})
+
+    return r_list
 
     if request.method == 'POST':
         type = data[0]['request-type']
