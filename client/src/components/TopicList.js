@@ -6,12 +6,12 @@ async function getUserTopics(userName) {
   const request_data = [
     {'request-type': 'user-topics'},
     {'username': userName},
-    {'password': 'password'},
-    {}
+    {'password': 'password'}
   ];
 
   const the_list = [];
 
+  /*
   await fetch("https://langkit-prod.herokuapp.com/data", {
     method: 'GET',
     headers: {
@@ -26,7 +26,7 @@ async function getUserTopics(userName) {
     }
   }
   ).catch((error) => {return [{'name': 'Fruit'}]});
-
+*/
   return the_list;
 }
 
@@ -34,11 +34,17 @@ function TopicList (props) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
-    let t = getUserTopics(props.userName);
-    console.log(t);
-    console.log(topics);
+    let t = [
+      {
+        'id': 0,
+        'name': 'Fruit but blue',
+        'sourceLang': 'en',
+        'targetLang': 'es'
+      }
+    ]
+    
     setTopics(t);
-  }, [props.userName, topics]);
+  }, [props.userName]);
 
   return (
     <>

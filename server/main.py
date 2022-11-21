@@ -119,7 +119,7 @@ def data_endpoint():
 
     r_list = []
     for i in topic_list:
-        r_list.append({ 'name': i})
+        r_list.append({'id': i[0], 'name': i[1], 'sourceLang': i[2], 'targetLang': i[3]})
 
     return r_list
 

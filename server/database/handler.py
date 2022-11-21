@@ -34,7 +34,7 @@ delete_topic = """DELETE FROM topics WHERE name = '%s_%s';"""
 insert_pair = """INSERT INTO pairs (source, translation, topic_id) VALUES
     ('%s', '%s', (SELECT id FROM topics WHERE name = '%s'));"""
 
-select_topics = """SELECT name FROM topics WHERE 
+select_topics = """SELECT * FROM topics WHERE 
     user_id = (SELECT id FROM users WHERE username = '%s');"""
 
 select_topic = """SELECT * FROM pairs WHERE 
@@ -78,7 +78,7 @@ class handler:
         ret = self.cur.execute(select_topics % username)
         l = []
         for i in ret:
-            l.append([t.strip(punctuation) for t in str(i).split('_')][1])
+            l.append([i[0], str(i[1]).split('_')[1].strip(punctuation), i[2], i[3]])
         return l
 
 
