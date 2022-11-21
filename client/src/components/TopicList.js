@@ -2,108 +2,41 @@ import '../scss/styles.js';
 import { useState, React, useEffect } from "react";
 
 
-const defaultList = [
-  {
-    'id': 0,
-    'name': 'fruits',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 1,
-    'name': 'greetings',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 2,
-    'name': 'nifty things',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 3,
-    'name': 'world wore',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 4,
-    'name': 'coffee etc.',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 5,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 6,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 7,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 8,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 9,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 10,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
-  },
-  {
-    'id': 11,
-    'name': 'Topic',
-    'sourceLang': 'en',
-    'targetLang': 'es'
+async function getUserTopics(userName) {
+  const request_data = [
+    {'request-type': 'user-topics'},
+    {'username': userName},
+    {'password': 'password'},
+    {}
+  ];
+
+  const the_list = [];
+
+  await fetch("https://langkit-prod.herokuapp.com/data", {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(request_data)
+  }).then((res) => res.json()).then( (res2) => {
+    var obj = JSON.parse(JSON.stringify(res2));
+    for (let i = 0; i < Object.keys(obj).length; i++) {
+      the_list.push(res2[i]['name']);
+    }
   }
-];
+  );
+
+  return the_list;
+}
 
 function TopicList (props) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
-    const data = [
-      {'username': props.userName}
-    ]
-
-    setTopics(defaultList);
-    return;
-      
-    async function getTopics(userName) {
-      await fetch("/user/topics", {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(data)
-      }).then((res) => res.json()).then( (res2) => {
-
-      }
-      );
-    }
-
-    getTopics();
-
+    let t = getUserTopics(props.userName);
+    console.log(t);
+    setTopics(t);
   }, [props.userName]);
 
   return (

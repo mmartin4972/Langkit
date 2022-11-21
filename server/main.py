@@ -13,6 +13,13 @@ db_name = 'local_langkit.db'
 
 db_handler = handler(db_name)
 
+# push some default data for testing
+db_handler.add_user("Carson", "password")
+db_handler.add_topic_to_user("Carson", "Fruit", ("en", "es"))
+db_handler.add_topic_to_user("Carson", "Another Topic", ("en", "es"))
+db_handler.add_topic_to_user("Carson", "Fruit But Blue", ("en", "es"))
+db_handler.add_pair_to_topic("Carson", "Fruit", ("Apple", "Manzana"))
+db_handler.add_pair_to_topic("Carson", "Fruit But Blue", ("A Blue Apple", "Una Manzana Azul"))
 
 app = Flask(__name__)
 

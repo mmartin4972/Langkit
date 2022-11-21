@@ -11,12 +11,13 @@ import TopicList from './components/TopicList';
 
 async function getUserTopics(userName) {
   const request_data = [
+    {'request-type': 'user-topics'},
     {'username': userName}
   ];
 
   const the_list = [];
 
-  await fetch("/user/topics", {
+  await fetch("/data", {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
@@ -26,8 +27,7 @@ async function getUserTopics(userName) {
   }).then((res) => res.json()).then( (res2) => {
     var obj = JSON.parse(JSON.stringify(res2));
     for (let i = 0; i < Object.keys(obj).length; i++) {
-      const new_pair = [[res2[i]['src'], res2[i]['trn']]]
-      the_list.push(new_pair);
+      the_list.push(res2[i]['name']);
     }
   }
   );
@@ -53,7 +53,7 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: 'Gerlad',
+      user: 'Carson',
       conversationHistory: [{'lk': 'Ask Me Anything...'}],
       currentTopic: defaultTopic
     };
