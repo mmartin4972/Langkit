@@ -1,15 +1,20 @@
 import '../scss/styles.js';
 import { useState, React, useEffect } from "react";
-
+import { ipcRenderer } from 'electron';
 
 async function getUserTopics(userName) {
-  const request_data = [
-    {'request-type': 'user-topics'},
-    {'username': userName},
-    {'password': 'password'}
-  ];
+  let i = ipcRenderer.invoke("test").then((data) => {
+    console.log("B", data);
+    return data;
+  }).catch((resp) => console.warn(resp))
 
+  console.log("C", i);
   const the_list = [];
+
+
+  // Make the Fetch call
+
+  // Convert the result to an array
 
   /*
   await fetch("https://langkit-prod.herokuapp.com/data", {
@@ -42,6 +47,8 @@ function TopicList (props) {
         'targetLang': 'es'
       }
     ]
+
+    getUserTopics(props.userName);
     
     setTopics(t);
   }, [props.userName]);

@@ -9,32 +9,6 @@ import TopicList from './components/TopicList';
 
 // something to get a list of the names of all of the topics in the user's account
 
-async function getUserTopics(userName) {
-  const request_data = [
-    {'request-type': 'user-topics'},
-    {'username': userName}
-  ];
-
-  const the_list = [];
-
-  await fetch("/data", {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(request_data)
-  }).then((res) => res.json()).then( (res2) => {
-    var obj = JSON.parse(JSON.stringify(res2));
-    for (let i = 0; i < Object.keys(obj).length; i++) {
-      the_list.push(res2[i]['name']);
-    }
-  }
-  );
-
-  return the_list;
-}
-
 
 const defaultTopic = [
   {'id': 0, 'source': 'banana', 'translation': 'platana'},

@@ -1,7 +1,16 @@
 // Module to control the application lifecycle and the native browser window.
-const { app, BrowserWindow, protocol } = require("electron");
+const { app, BrowserWindow, protocol, ipcMain } = require("electron");
 const path = require("path");
 const url = require("url");
+
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
+
+ipcMain.handle("test", async () => {
+  const response = await fetch("http://www.boredapi.com/api/activity/");
+  console.log("A", response);
+  return response;
+});
 
 // Create the native browser window.
 function createWindow() {
