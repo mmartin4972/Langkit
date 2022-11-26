@@ -1,9 +1,13 @@
-import React from "react";
+import '../styles/styles'
 
-const CommandWindow = () => {
+function CommandWindow () {
+
     return (
-      <section className="command-window">CommandWindow</section>
+        <>
+            <section className="command-window">CommandWindow</section>
+        </>
     );
 }
+
 
 export default CommandWindow;

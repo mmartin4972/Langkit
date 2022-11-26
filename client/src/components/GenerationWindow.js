@@ -1,11 +1,13 @@
-import React from "react";
+import '../styles/styles'
 
-const GenerationWindow = () => {
+function GenerationWindow () {
+
     return (
-      <div className="generation-window-container">
-        
-      </div>
+        <>
+            <div className="generation-window-container"></div>
+        </>
     );
 }
+
 
 export default GenerationWindow;

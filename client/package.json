@@ -2,30 +2,21 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "author": "Carson Ellis and Matthew Martin",
-  "description": "Langkit",
-  "main": "./public/electron.js",
-  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "node-sass": "^8.0.0",
+    "axios": "^1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "sass": "^1.56.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -35,46 +26,15 @@
   },
   "browserslist": {
     "production": [
-      "last 1 electron version",
       ">0.2%",
       "not dead",
       "not op_mini all"
     ],
     "development": [
-      "last 1 electron version"
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "concurrently": "^7.5.0",
-    "cross-env": "^7.0.3",
-    "electron": "^21.3.0",
-    "electron-builder": "^23.6.0",
-    "electronmon": "^2.0.2",
-    "wait-on": "^6.0.1"
-  },
-  "build": {
-    "appId": "com.electron.langkit",
-    "productName": "Langkit",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories": {
-      "buildResources": "public"
-    },
-    "mac": {
-      "target": "dmg"
-    },
-    "win": {
-      "target": "nsis"
-    },
-    "linux": {
-      "target": "deb"
-    }
-  },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
-  }
+  "proxy": "https://langkit-prod.herokuapp.com" 
 }

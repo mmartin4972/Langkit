@@ -65,6 +65,7 @@ def default():
 
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd():
+    return {'hello': 'its me'}
     cmds = request.json
     res = []
     for cmd in cmds :

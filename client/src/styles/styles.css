@@ -1,0 +1,232 @@
+:root {
+    --line-color: #36c79e;
+    --bg-color: #151719;
+    --font-color: #D2F9EE;
+    --hover-color: #c79436;
+}
+
+.app-view-container {
+    position: relative;
+    background-color: var(--bg-color);
+
+    height: 100vh;
+    width: 100vw;
+
+    color: var(--font-color);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    overflow: hidden;
+}
+
+.topic-list-container {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    top: 4vh;
+    left: 0vw;
+
+    width: 16.66vw;
+    height: 95.53vh;
+
+    border: 2px dashed var(--line-color);
+
+    border-radius: 0px 0px 0px 10px;
+
+    overflow-y: scroll;
+}
+
+.topic-list-container li {
+    height: 2vh;
+    width: 16.66vw;
+    display: flex;
+    flex-direction: row;
+
+    border: 1px dashed var(--bg-color);
+
+    margin-top: 1px;
+}
+
+.topic-list-container li:hover {
+    border-color: var(--hover-color);
+}
+
+.topic-list-container li div {
+    height: 100%;
+
+    padding-left: 5px;
+}
+
+.topic-list-container li div#topic-name {
+    width: 68%;
+}
+
+.topic-list-container li div#topic-sourceLang {
+    width: 10%;
+}
+
+.topic-list-container li div#topic-targetLang {
+    width: 10%;
+}
+
+.topic-list-container li button#topic-delete-btn {
+    all: unset;
+    height: 100%;
+    width: 12%;
+
+    background-color: none;
+}
+
+.topic-list-container li button#topic-delete-btn:hover {
+    background: rgb(224, 88, 88) center/85% url('../assets/trash-icon.png') no-repeat;
+}
+
+.topic-view-container {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    top: 4vh;
+    left: 16.83vw;
+
+    height: 95.53vh;
+    width: 45.83vw;
+
+    overflow-y: scroll;
+
+    border: var(--line-color);
+    border-width: 2px;
+    border-style: solid;
+}
+
+.topic-view-container li {
+    height: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    border: 1px solid var(--bg-color);
+
+    margin-top: 1px;
+}
+
+.topic-view-container li:hover {
+    border-color: var(--hover-color);
+}
+
+.topic-view-container li div {
+    height: 100%;
+
+    padding-left: 5px;
+}
+
+.topic-view-container li div#pair-source {
+    width: 68%;
+}
+
+.topic-view-container li div#pair-target {
+    width: 10%;
+}
+
+.topic-view-container li button#pair-delete-btn {
+    all: unset;
+    height: 100%;
+    width: 12%;
+
+    background-color: none;
+}
+
+.topic-view-container li button#topic-delete-btn:hover {
+    background: rgb(224, 88, 88) center/85% url('../assets/trash-icon.png') no-repeat;
+}
+
+.generation-window-container {
+    position: absolute;
+    height: 99.48vh;
+    width: 36.5vw;
+    top: 0px;
+    right: 0px;
+
+    padding: 0;
+    margin: 0;
+
+    border: 2px solid var(--line-color);
+    border-radius: 0px 0px 10px 0px;
+}
+
+.generation-window {
+    position: absolute;
+    height: 46.4vh;
+    width: 36.5vw;
+    top: 31vh;
+    right: 0px;
+
+    padding: 0;
+    margin: 0;
+
+    border: 2px solid var(--line-color);
+    border-radius: 0px 0px 10px 0px;
+}
+
+.command-window {
+    position: absolute;
+    height: 26.7vh;
+    width: 36.5vw;
+    top: 0px;
+    right: 0px;
+
+    border: 2px solid var(--line-color);
+}
+
+.prompt-box {
+    top: 24.7vh;
+    right: 0px;
+    height: 30px;
+    width: 36.17vw;
+
+    font-size: larger;
+}
+
+.app-view-container button {
+    all: unset;
+    position: absolute;
+
+    height: 3.8vh;
+    width: 3.8vh;
+
+    border: 2px solid var(--line-color);
+}
+
+.app-view-container button#anki-export {
+    top: 0px;
+    left: 59.5vw;
+
+    background: var(--bg-color) center/85% url('../assets/anki-icon.png') no-repeat;
+}
+
+.app-view-container button#anki-export:hover {
+    background: var(--bg-color) center/95% url('../assets/anki-icon.png') no-repeat;
+}
+
+.app-view-container button#save {
+    top: 0px;
+    left: 56.16vw;
+
+    background: var(--bg-color) center/85% url('../assets/save-icon.png') no-repeat;
+}
+
+.app-view-container button#save:hover {
+    background: var(--bg-color) center/95% url('../assets/save-icon.png') no-repeat;
+}
+
+.app-view-container button#add-topic {
+    top: 0px;
+    left: 52.83vw;
+
+    background: var(--bg-color) center/85% url('../assets/add-icon.png') no-repeat;
+}
+
+.app-view-container button#add-topic:hover {
+    background: var(--bg-color) center/95% url('../assets/add-icon.png') no-repeat;
+}
