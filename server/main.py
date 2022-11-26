@@ -65,7 +65,8 @@ def default():
 
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd():
-    return {
+
+    d = {
         {
             'id': 0,
             'name': 'Fruit', 
@@ -85,6 +86,9 @@ def parse_cmd():
             'targetLang': 'es'
         }
     }
+
+    return jsonify(d)
+    
     cmds = request.json
     res = []
     for cmd in cmds :
