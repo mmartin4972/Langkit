@@ -37,7 +37,7 @@
 }
 
 .topic-list-container li {
-    height: 2vh;
+    height: 3vh;
     width: 16.66vw;
     display: flex;
     flex-direction: row;

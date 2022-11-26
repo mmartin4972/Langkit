@@ -21,18 +21,15 @@ async function testFetch () {
 function TopicListView () {
     const [list, setList] = useState([]);
 
-    const dummyList = [{'id': 0, 'topic-name': 'Fruit', 'source': 'en'}, {'id': 1, 'topic-name': 'Fruit', 'source': 'en'}]
-
     useEffect(() => {
         const getList = async () => {
-            console.log("Start Fetch----------------");
             const requestOptions = {
               method: 'POST',
               headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
               body: JSON.stringify({ username: 'Carson' })
             };
           
-            const a = await fetch('/parse-cmd', requestOptions)
+            const a = await fetch('/data', requestOptions)
               .then(response => {return response.json()})
               .then(res => {return Array.from(res)})
               .catch(error => console.log(error));
@@ -53,10 +50,10 @@ function TopicListView () {
                 {list.map(topic => {
                     return (
                       <li key={topic.id}>
-                        <div className='topic-tile-name'>{topic.}</div>
-                        <div className='topic-tile-source'></div>
-                        <div className='topic-tile-target'></div>
-                        <button className='topic-tile-delete' onSubmit={() => {removeListItem(topic.id)}}></button>
+                        <div id='topic-name'>{topic.name}</div>
+                        <div id='topic-sourceLang'>{topic.sourceLang}</div>
+                        <div id='topic-targetLang'>{topic.targetLang}</div>
+                        <button id='topic-delete-btn' onSubmit={() => {removeListItem(topic.id)}}></button>
                       </li>
                     );
                 })}

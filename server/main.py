@@ -135,8 +135,8 @@ def quick_translate():
     return res
 
 
-@app.route('/data', methods=['POST', 'GET'])
-def data_endpoint():
+@app.route('/get-topics', methods=['POST', 'GET'])
+def get_topics_endpoint():
     data = request.json
     username = data[0]['username']
     topic_list = db_handler.get_topics(username)
@@ -145,38 +145,7 @@ def data_endpoint():
     for i in topic_list:
         r_list.append({'id': i[0], 'name': i[1], 'sourceLang': i[2], 'targetLang': i[3]})
 
-    return r_list
-
-    if request.method == 'POST':
-        type = data[0]['request-type']
-
-        if type == 'init-user':
-            username = data[0]['username']
-            password = data[0]['password']
-            topic_list = db_handler.get_topics(username)
-    elif request.method == 'GET':
-        if type == 'user-topics':
-            username = data[0]['username']
-            topic_list = db_handler.get_topics(username)
-
-            r_list = []
-            for i in topic_list:
-                r_list.append({ 'name': i})
-
-            return r_list
-        if type == 'get-topic':
-            username = data[0]['username']
-            topic_name = data[0]['topic-name']
-            topic = db_handler.get_topic(username, topic_name)
-
-            r_list = []
-            for i in topic:
-                r_list.append({{ 'source', i[0]}, { 'translation', i[1]}})
-            
-            return r_list
-
-    else:
-        return []
+    return jsonify(r_list)
 
 
 @app.route('/cmd', methods=['POST', 'GET'])
