@@ -65,7 +65,26 @@ def default():
 
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd():
-    return {'hello': 'its me'}
+    return {
+        {
+            'id': 0,
+            'name': 'Fruit', 
+            'sourceLang': 'en', 
+            'targetLang': 'es'
+        },
+        {
+            'id': 1,
+            'name': ' Still Fruit', 
+            'sourceLang': 'en', 
+            'targetLang': 'es'
+        },
+        {
+            'id': 2,
+            'name': 'Fruit but blue', 
+            'sourceLang': 'en', 
+            'targetLang': 'es'
+        }
+    }
     cmds = request.json
     res = []
     for cmd in cmds :
