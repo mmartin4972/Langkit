@@ -9,13 +9,18 @@ async function testFetch () {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-    body: JSON.stringify({ cmd: 'Generate me phrases about a dinner party' })
+    body: JSON.stringify({ username: 'Carson' })
   };
-
 
   fetch('/parse-cmd', requestOptions)
     .then(response => {console.log(response); return response.json();})
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(Array.from(res));
+      let a = Array.from(res);
+      for (let i = 0; i < a.length; i++) {
+        console.log(a[i]);
+      }
+    })
     .catch(error => console.log(error));
 }
 

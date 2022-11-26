@@ -69,19 +69,19 @@ def parse_cmd():
     d = [
         {
             'id': 0,
-            'topic-name': 'Fruit',
+            'name': 'Fruit',
             'sourceLang': 'en',
             'targetLang': 'es'
         },
         {
             'id': 1,
-            'topic-name': 'Fruit but blue',
+            'name': 'Fruit but blue',
             'sourceLang': 'en',
             'targetLang': 'es'
         },
         {
             'id': 2,
-            'topic-name': 'Fruit, still',
+            'name': 'Fruit, still',
             'sourceLang': 'en',
             'targetLang': 'es'
         }
