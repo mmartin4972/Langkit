@@ -67,28 +67,14 @@ def default():
 def parse_cmd():
 
     d = {
-        {
-            'id': 0,
-            'name': 'Fruit', 
-            'sourceLang': 'en', 
-            'targetLang': 'es'
-        },
-        {
-            'id': 1,
-            'name': ' Still Fruit', 
-            'sourceLang': 'en', 
-            'targetLang': 'es'
-        },
-        {
-            'id': 2,
-            'name': 'Fruit but blue', 
-            'sourceLang': 'en', 
-            'targetLang': 'es'
-        }
+        'id': 2,
+        'name': 'Fruit but blue', 
+        'sourceLang': 'en', 
+        'targetLang': 'es'
     }
 
-    return jsonify(d)
-    
+    return d
+
     cmds = request.json
     res = []
     for cmd in cmds :
