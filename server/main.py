@@ -138,7 +138,7 @@ def quick_translate():
 @app.route('/get-topics', methods=['POST', 'GET'])
 def get_topics_endpoint():
     data = request.json
-    username = data[0]['username']
+    username = data['username']
     topic_list = db_handler.get_topics(username)
 
     r_list = []
