@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/styles';
-import axios from 'axios';
 
 function TopicListView () {
     const [list, setList] = useState([]);
@@ -18,32 +17,32 @@ function TopicListView () {
               .then(res => {return Array.from(res)})
               .catch(error => console.log(error));
 
-            console.log(a);
-            
             setList(a);
         }
 
         getList();
-    }, [list.length]);
+    }, []);
 
-    function removeListItem (id) {
-
+    const removeListItem = (id) => {
+      const newList = [...list];
+      newList.splice(newList.indexOf(e => e.id !== id), 1);
+      setList(newList);
     }
 
     return (
         <>
-            <ul className='topic-list-container'>
-                {list.map(topic => {
-                    return (
-                      <li key={topic.id}>
-                        <div id='topic-name'>{topic.name}</div>
-                        <div id='topic-sourceLang'>{topic.sourceLang}</div>
-                        <div id='topic-targetLang'>{topic.targetLang}</div>
-                        <button id='topic-delete-btn' onSubmit={() => {removeListItem(topic.id)}}></button>
-                      </li>
-                    );
-                })}
-            </ul>
+          <ul className='topic-list-container'>
+              {list.map(topic => {
+                  return (
+                    <li key={topic.id}>
+                      <div id='topic-name'>{topic.name}</div>
+                      <div id='topic-sourceLang'>{topic.sourceLang}</div>
+                      <div id='topic-targetLang'>{topic.targetLang}</div>
+                      <button id='topic-delete-btn' onClick={() => {removeListItem(topic.id)}}></button>
+                    </li>
+                  );
+              })}
+          </ul>
         </>
     );
 }
