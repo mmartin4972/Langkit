@@ -7,15 +7,17 @@ function TopicListView () {
     useEffect(() => {
         const getList = async () => {
             const requestOptions = {
-              method: 'POST',
+              method: 'GET',
               headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
               body: JSON.stringify({})
             };
           
             const a = await fetch('/get-topics', requestOptions)
-              .then(response => {return response.json()})
-              .then(res => {return Array.from(res)})
-              .catch(error => console.log(error));
+                .then(response => {return response.json()})
+                .then(res => {return Array.from(res)})
+                .catch(error => console.log(error));
+            
+            console.log("In Topic List", a);
 
             setList(a);
         }

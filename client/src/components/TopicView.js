@@ -9,9 +9,9 @@ function TopicView () {
     useEffect(() => {
         const getList = async () => {
             const requestOptions = {
-              method: 'POST',
+              method: 'GET',
               headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-              body: JSON.stringify({ name: 'Fruit'})
+              body: JSON.stringify({ name: {openTopic}})
             };
           
             const a = await fetch('/get-topic', requestOptions)
@@ -19,11 +19,13 @@ function TopicView () {
               .then(res => {return Array.from(res)})
               .catch(error => console.log(error));
 
+            console.log("In Topic View", a);
+
             setList(a);
         }
 
         getList();
-    }, []);
+    }, [openTopic]);
 
     const removeListItem = (id) => {
       const newList = [...list];

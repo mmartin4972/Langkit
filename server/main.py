@@ -87,7 +87,7 @@ def get_topics_endpoint():
 
 
 ## Get Topic Endpoint
-@app.route('/get-topic', methods=['GET'])
+@app.route('/get-topic', methods=['POST'])
 def get_topic_endpoint():
     data = request.json()
 

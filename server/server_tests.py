@@ -18,5 +18,5 @@ data1 = [
     {"from": "en", "to": "es", "text": "the school is on fire"}
 ]
 res1 = requests.post(prod_url + "/translate", json=data1).json()
-print(res1[0])
+print(res1)
 
