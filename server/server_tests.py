@@ -7,7 +7,7 @@ data = [
 ]
 headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
 
-res = requests.post(prod_url + "/get-topic", json=data).json()
+res = requests.post(prod_url + "/get-topic", json=data)
 
 print(res)
 
