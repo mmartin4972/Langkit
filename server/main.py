@@ -9,41 +9,36 @@ from word_embedding.word_embedder import WordEmbedder
 from translate.translate import translate_text
 from database.handler import handler
 
-# Start INITIALIZATION
-
-## Set Database Name
 db_name = 'local_langkit.db'
 
-## Create Database Handler Object
 db_handler = handler(db_name)
 
-## Fill Database with Default Data
+# push some default data for testing
 db_handler.add_topic("Fruit", ("en", "es"))
 db_handler.add_topic("Another Topic", ("en", "es"))
 db_handler.add_topic("Fruit But Blue", ("en", "es"))
 db_handler.add_pair_to_topic( "Fruit", ("Apple", "Manzana"))
 db_handler.add_pair_to_topic("Fruit But Blue", ("A Blue Apple", "Una Manzana Azul"))
-db_handler.add_pair_to_topic("Fruit But Blue", ("A Red Apple", "Una Manzana Roja"))
-db_handler.add_pair_to_topic("Fruit But Blue", ("An Orange Orange", "Una Naranja Naranja"))
 
-## Create Flask App Object
+
 app = Flask(__name__)
 
-## Create Spacy Entity Extraction Object
+print("Loading Models. This could take some time")
+# Load entity extractor
 entity_extractor = spacy.load("./spacy/output")
 
-## Create Word Embedder Object
-word_embedder = WordEmbedder()
-
-## Create Entity Extraction Function
 def extract_entities(phrase:str) :
     return entity_extractor(phrase).ents
 
-## Create Word Embedding Functions
-## TODO: Would be good to cache these embeddings in a file to reduce launch time
+# Load word embedder
+word_embedder = WordEmbedder()
+
 def get_phrase_embedding(phrase:str) :
     return word_embedder.get_embedding([phrase])[0]
 
+print("Models loaded")
+
+# TODO: Would be good to cache these embeddings in a file to reduce launch time
 funcs = {
     'GEN_PHRASE': {
         'str': 'generate phrases', 
@@ -62,19 +57,13 @@ funcs = {
         'emb': [[0]*512]
     }
 }
+print("Server Initialized Successfully")
 
-# End INITILIZATION
-
-
-# Start: END POINT FUNCTIONS
-
-## Root Function
 @app.route("/")
 def default():
     return "Server Ack\n"
 
 
-## Get Topics Endpoint
 @app.route('/get-topics', methods=['GET'])
 def get_topics_endpoint():
     topic_list = db_handler.get_topics()
@@ -86,12 +75,11 @@ def get_topics_endpoint():
     return jsonify(r_list)
 
 
-## Get Topic Endpoint
-@app.route('/get-topic', methods=['POST'])
+@app.route('/get-topic', methods=['GET'])
 def get_topic_endpoint():
     data = request.json()
 
-    topic_name = data['name']
+    topic_name = data['topic-name']
 
     topic = db_handler.get_topic(topic_name)
 
@@ -102,12 +90,36 @@ def get_topic_endpoint():
     return jsonify(r_list)
 
 
-## Parse Command Endpoint
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd():
+
+    d = [
+        {
+            'id': 0,
+            'name': 'Fruit',
+            'sourceLang': 'en',
+            'targetLang': 'es'
+        },
+        {
+            'id': 1,
+            'name': 'Fruit but blue',
+            'sourceLang': 'en',
+            'targetLang': 'es'
+        },
+        {
+            'id': 2,
+            'name': 'Fruit, still',
+            'sourceLang': 'en',
+            'targetLang': 'es'
+        }
+    ]
+
+    return jsonify(d)
+
     cmds = request.json
     res = []
-    for cmd in cmds:
+    for cmd in cmds :
+        print(cmd)
         ents = extract_entities(cmd['cmd'])
 
         elt = {
@@ -116,17 +128,18 @@ def parse_cmd():
         }
         
         # Look through found entities to populate elt
-        for ent in ents:
-            if ent.label_ == 'FUNC':
+        for ent in ents :
+            
+            if ent.label_ == 'FUNC' :
                 # Find func enum that best matches extracted func phrase
                 best_dist = 0.5
-                for func in funcs:
+                for func in funcs :
                     dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
-                    if best_dist < dist:
+                    if best_dist < dist :
                         elt['FUNC'] = func
                         best_dist = dist
 
-            elif ent.label_ == 'PARAM':
+            elif ent.label_ == 'PARAM' :
                 elt['PARAM'] = ent.text  
 
         res.append(elt)
@@ -134,22 +147,86 @@ def parse_cmd():
     return res
 
 
-## Add Topic Endpoint
-@app.route('/add-topic', methods=['POST'])
-def parse_cmd():
-    pass
+@app.route('/naive-gpt3-res', methods=['POST'])
+def naive_gtp3_res():
+    cmds = request.json
 
 
-## Remove Topic Endpoint
-@app.route('/remove-topic', methods=['POST'])
-def parse_cmd():
-    pass
+@app.route('/translate', methods=['POST'])
+def quick_translate():
+    print("Got request ", request.json)
+    res = []
+    for req in request.json :
+        s = translate_text(req['to'], req['text'])
+        res.append(s)
+        print(s)
+    return res
 
 
-## Update Pairs Endpoint
-@app.route('/update-pairs', methods=['POST'])
-def parse_cmd():
-    pass
 
-# End: END POINT FUNCTIONS
+@app.route('/cmd', methods=['POST', 'GET'])
+def cmd_endpoint():
+    data = request.json
+
+    if request.method == 'GET':
+        type = data[0]['request-type']
+
+        if type == 'user-topics':
+            username = data[0]['username']
+            topic_list = db_handler.get_topics(username)
+    elif request.method == 'POST':
+        if type == 'user-topics':
+            username = data[0]['username']
+            topic_list = db_handler.get_topics(username)
+    else:
+        return
+
+
+@app.route('/user/init', methods=['POST'])
+def user_init():
+    req = request.json
+    new_user = [req[0]['username'], req[0]['password']]
+    db_handler.add_user(new_user[0], new_user[1])
+
+
+def get_user_topics (user: str):
+    return jsonify([
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+        {
+            'src': 'source',
+            'trn': 'translation'
+        },
+    ])
+
+
+@app.route('/user/topics', methods=['GET'])
+def user_get_topics():
+    req = request.json
+
+    username = req[0]['username']
+
+    # Fake DB Request
+    # After db is up this should be made using the username from the request
+
+    if request.method == 'GET':
+        return jsonify(
+            topicname='Gerald',
+            topiclist=get_user_topics(username)
+        )
+
+    return jsonify(
+        topicname='Gerald',
+        topiclist=get_user_topics(username)
+    )
 
