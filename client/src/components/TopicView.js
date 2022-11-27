@@ -9,11 +9,11 @@ function TopicView () {
     useEffect(() => {
         const getList = async () => {
             const requestOptions = {
-              method: 'GET',
+              method: 'POST',
               headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-              body: JSON.stringify({ name: {openTopic}})
+              body: JSON.stringify({ name: openTopic})
             };
-          
+            /* 
             const a = await fetch('/get-topic', requestOptions)
               .then(response => {return response.json()})
               .then(res => {return Array.from(res)})
@@ -21,7 +21,7 @@ function TopicView () {
 
             console.log("In Topic View", a);
 
-            setList(a);
+            setList(a);*/
         }
 
         getList();

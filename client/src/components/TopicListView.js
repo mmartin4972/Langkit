@@ -8,8 +8,7 @@ function TopicListView () {
         const getList = async () => {
             const requestOptions = {
               method: 'GET',
-              headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-              body: JSON.stringify({})
+              headers: { 'Accept':'application/json' }
             };
           
             const a = await fetch('/get-topics', requestOptions)
