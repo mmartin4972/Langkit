@@ -9,7 +9,7 @@ function TopicListView () {
             const requestOptions = {
               method: 'POST',
               headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-              body: JSON.stringify({ username: 'Carson' })
+              body: JSON.stringify({})
             };
           
             const a = await fetch('/get-topics', requestOptions)

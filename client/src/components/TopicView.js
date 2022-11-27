@@ -11,7 +11,7 @@ function TopicView () {
             const requestOptions = {
               method: 'POST',
               headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-              body: JSON.stringify({ username: 'Carson' , topic})
+              body: JSON.stringify({ name: 'Fruit'})
             };
           
             const a = await fetch('/get-topic', requestOptions)
@@ -37,8 +37,8 @@ function TopicView () {
               {list.map(pair => {
                   return (
                     <li key={pair.id}>
-                      <div id='topic-sourceLang'>{pair.source}</div>
-                      <div id='topic-targetLang'>{pair.target}</div>
+                      <div id='topic-source'>{pair.source}</div>
+                      <div id='topic-translation'>{pair.translation}</div>
                       <button id='topic-delete-btn' onClick={() => {removeListItem(pair.id)}}></button>
                     </li>
                   );

@@ -91,7 +91,7 @@ def get_topics_endpoint():
 def get_topic_endpoint():
     data = request.json()
 
-    topic_name = data['topic-name']
+    topic_name = data['name']
 
     topic = db_handler.get_topic(topic_name)
 
