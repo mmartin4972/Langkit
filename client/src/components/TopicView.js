@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/styles';
 
-function TopicView () {
-    const [list, setList] = useState([]);
-
-    const [openTopic, setOpenTopic] = useState('Fruit');
-
+function TopicView (props) {
+    /*
     useEffect(() => {
         const getList = async () => {
             const requestOptions = {
@@ -21,7 +18,7 @@ function TopicView () {
 
             console.log("In Topic View", a);
 
-            setList(a);*/
+            setList(a);
             const tempList = [
                 {id: 0, source: 'Apple', translation: 'Manzana'},
                 {id: 0, source: 'Plum', translation: 'Oleveda'},
@@ -44,16 +41,16 @@ function TopicView () {
       newList.splice(newList.indexOf(e => e.id !== id), 1);
       setList(newList);
     }
-
+  */
     return (
         <>
           <ul className='topic-view-container'>
-              {list.map(pair => {
+              {props.pairs.map(pair => {
                   return (
                     <li key={pair.id}>
                       <div id='pair-source'>{pair.source}</div>
                       <div id='pair-translation'>{pair.translation}</div>
-                      <button id='pair-delete-btn' onClick={() => {removeListItem(pair.id)}}></button>
+                      <button id='pair-delete-btn' onClick={() => {props.deletePair(props.selectedTopicId, pair.id)}}></button>
                     </li>
                   );
               })}

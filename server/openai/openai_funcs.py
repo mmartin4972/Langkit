@@ -1,8 +1,8 @@
 import openai
-
+from key import api_key
 #                  30 requests ~~ 0.03 cents
 
-openai.api_key = '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'
+openai.api_key = api_key
 
 # list engines
 engines = openai.Engine.list()
@@ -12,7 +12,7 @@ print(engines.data[17].id)
 
 sentences = []
 
-prompt = "phrases about running"
+prompt = "complex sentence about running"
 
 for _ in range(2):
     # create a completion

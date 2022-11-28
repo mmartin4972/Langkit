@@ -20,11 +20,11 @@ function GenerationWindow (props) {
                 <div className="basic-grid" id="generated-vocab">
                     {tempList.map(pair => {
                             return (
-                                <div>
+                                <button onClick={() => props.addPair(pair.source, pair.translation)}>
                                     <div id='src'>{pair.source}</div>
                                     <div id='mid'></div>
                                     <div id='trn'>{pair.translation}</div>
-                                </div>
+                                </button>
                             );
                         })
                     }
