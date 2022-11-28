@@ -22,10 +22,22 @@ function TopicView () {
             console.log("In Topic View", a);
 
             setList(a);*/
+            const tempList = [
+                {id: 0, source: 'Apple', translation: 'Manzana'},
+                {id: 0, source: 'Plum', translation: 'Oleveda'},
+                {id: 0, source: 'Banana', translation: 'Platana'},
+                {id: 0, source: 'Togepi is in front of me and looks nice', translation: 'Togepi es en el frente de yo, y mira bueno'},
+                {id: 0, source: 'Plum', translation: 'Oleveda'},
+                {id: 0, source: 'Banana', translation: 'Platana'},
+                {id: 0, source: 'Apple', translation: 'Manzana'},
+                {id: 0, source: 'Plum', translation: 'Oleveda'},
+                {id: 0, source: 'Banana', translation: 'Platana'}
+            ];
+            setList(tempList);
         }
 
         getList();
-    }, [openTopic]);
+    }, []);
 
     const removeListItem = (id) => {
       const newList = [...list];
@@ -39,9 +51,9 @@ function TopicView () {
               {list.map(pair => {
                   return (
                     <li key={pair.id}>
-                      <div id='topic-source'>{pair.source}</div>
-                      <div id='topic-translation'>{pair.translation}</div>
-                      <button id='topic-delete-btn' onClick={() => {removeListItem(pair.id)}}></button>
+                      <div id='pair-source'>{pair.source}</div>
+                      <div id='pair-translation'>{pair.translation}</div>
+                      <button id='pair-delete-btn' onClick={() => {removeListItem(pair.id)}}></button>
                     </li>
                   );
               })}

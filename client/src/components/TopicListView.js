@@ -15,10 +15,15 @@ function TopicListView () {
                 .then(response => {return response.json()})
                 .then(res => {return Array.from(res)})
                 .catch(error => console.log(error));
-            
-            console.log("In Topic List", a);
 
-            setList(a);
+            const tempList = [
+              {id: 0, name: 'Fruit', sourceLang: 'en', targetLang: 'es'},
+              {id: 1, name: 'Fruit', sourceLang: 'en', targetLang: 'ru'},
+              {id: 2, name: 'Fruit', sourceLang: 'zh', targetLang: 'ru'},
+              {id: 3, name: 'Vegetables', sourceLang: 'en', targetLang: 'es'}
+            ]
+
+            setList(tempList);
         }
 
         getList();
