@@ -94,3 +94,8 @@
 - To add Google credentials to your local environment, go to the Heroku application and copy the environment variable text into a local environment into an environment variable of the same name
 - Run the translate/add-google-creds.sh file to create the credentials.json
 - Set the GOOGLE_APPLICATION_CREDENTIALS environment variable to point at credentials.json
+
+## Running Google Translate locally
+- export GOOGLE_APPLICATION_CREDENTIALS=/langkit/server/translate/google-credentials.json
+
+
