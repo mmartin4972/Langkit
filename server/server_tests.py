@@ -21,3 +21,8 @@ data1 = [
 res1 = requests.post(url + "/translate", json=data1)
 print(res1.json())
 
+data2 = [
+    {"prompt": "Generate me phrases about winter"}
+]
+res2 = requests.post(url + "/naive-gpt3-res", json=data2)
+print(res2.json())

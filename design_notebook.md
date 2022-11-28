@@ -98,4 +98,14 @@
 ## Running Google Translate locally
 - export GOOGLE_APPLICATION_CREDENTIALS=/langkit/server/translate/google-credentials.json
 
+## Running OpenAI locally
+- set the OPENAI_KEY environment variable to the secret key value on Heroku
+
+## Integrating OpenAI
+- Simply utilize their python library
+- Documentation can be found here: https://beta.openai.com/docs/api-reference/models/retrieve?lang=python
+- The only tricky part is that you need to copy the environment variable in the Dockerfile during setup
+- Can really fine tune the parameters of the completion endpoint here: https://beta.openai.com/docs/api-reference/completions
+- The completion endpoint is what we want
+
 

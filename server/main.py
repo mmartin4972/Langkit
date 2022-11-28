@@ -3,10 +3,11 @@ import tensorflow_hub as hub
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
-# import translators as tr
 from flask import Flask, request, jsonify
 from word_embedding.word_embedder import WordEmbedder
 from translate.translate import translate_text
+import openai
+import os
 
 app = Flask(__name__)
 
@@ -107,9 +108,20 @@ def parse_cmd():
     return jsonify(res)
 
 
+openai.api_key = os.getenv("OPENAI_KEY")
 @app.route('/naive-gpt3-res', methods=['POST'])
 def naive_gtp3_res():
-    cmds = request.json
+    print("Got request ", request.json)
+    res = []
+    for req in request.json :
+        out = openai.Completion.create(
+            model="text-davinci-002", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)
+            prompt=req['prompt'],
+            n=5,
+            max_tokens=20,
+        )
+        res.append(out)
+    return jsonify(res)
 
 
 @app.route('/translate', methods=['POST'])
@@ -129,6 +141,7 @@ def quick_translate():
 
 # Carson Functions
 
+# import translators as tr
 # from database.handler import handler
 
 # db_name = 'local_langkit.db'
