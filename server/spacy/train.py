@@ -5,19 +5,60 @@ from pathlib import Path
 import spacy
 from tqdm import tqdm
 import re
+import json
 
 # TODO:
 # Replace TRAIN_DATA with something that will read from the ner_train.json file and
 #   generate the below structure using regex
-TRAIN_DATA = [
-  ("Generate me phrases about dinosaurs.", { 
-    'entities': [(0, 19, "FUNC"),(26, 35, "PARAM")]
-    }),
+# TRAIN_DATA = [
+#   ("Generate me phrases about dinosaurs.", { 
+#     'entities': [(0, 19, "FUNC"),(26, 35, "PARAM")]
+#     }),
 
-  ("translate the phrase I'm hungry", {
-    'entities': [(0,9,"FUNC"),(21,31,"PARAM")]
-    })
-]
+#   ("translate the phrase I'm hungry", {
+#     'entities': [(0,9,"FUNC"),(21,31,"PARAM")]
+#     })
+# ]
+def restructure_phrase(phrase) :
+    res = ""
+    reading_entity = False
+    reading_type = False
+    entity_start = -1
+    entity_stop = -1
+    entity_type = ""
+    entities = []
+    for c in phrase :
+        if c == '[' :
+            reading_entity = True
+            entity_start = len(res)
+        elif c == ']' :
+            reading_entity = False
+            entity_stop = len(res)
+        elif c == '(' :
+            reading_type = True
+        elif c == ')' :
+            reading_type = False
+            entities.append((entity_start, entity_stop, entity_type.upper()))
+            entity_type = ""
+        elif reading_type :
+            entity_type += c
+        else :
+            res += c
+    return (res, {'entities': entities})
+
+
+TRAIN_DATA = []
+
+f = open('ner_train.json')
+data = json.load(f)
+
+for i in data :
+    print(i)
+    TRAIN_DATA.append(restructure_phrase(i))
+
+f.close()
+
+print(TRAIN_DATA)
 
 model = None
 output_dir=Path("./output")
@@ -25,12 +66,12 @@ n_iter=100
 
 #load the model
 
-if model is not None:
-    nlp = spacy.load(model)  
-    print("Loaded model '%s'" % model)
-else:
-    nlp = spacy.blank('en')  
-    print("Created blank 'en' model")
+# if model is not None:
+#     nlp = spacy.load(model)  
+#     print("Loaded model '%s'" % model)
+# else:
+nlp = spacy.blank('en')  
+print("Created blank 'en' model")
 
 #set up the pipeline
 
