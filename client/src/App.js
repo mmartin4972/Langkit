@@ -105,6 +105,27 @@ class App extends Component {
           ]
         }
       ],
+      cmd_window_pairs: [
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Word One', 'translation': 'Word One'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frentTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoe de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el Togepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenofrente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
+        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'}
+    ],
       selectedTopic: 0
     };
   }
@@ -175,7 +196,7 @@ class App extends Component {
         <TopicListView topics={this.state.topics} setSelectedTopic={this.setSelectedTopic.bind(this)}/>
         <TopicView pairs={this.state.topics[this.state.selectedTopic].list} deletePair={this.deletePair.bind(this)} selectedTopicId={this.state.selectedTopic}/>
         <CommandWindow />
-        <GenerationWindow addPair={this.addPair.bind(this)}/>
+        <GenerationWindow pairs={this.state.cmd_window_pairs} addPair={this.addPair.bind(this)}/>
       </div>
     );
   }
