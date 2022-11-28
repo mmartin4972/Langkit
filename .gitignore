@@ -2,6 +2,7 @@
 client/node_modules
 client/build
 client/dist
+server/openai/key.py
 server/__pycache__
 __pycache__
 *credentials*

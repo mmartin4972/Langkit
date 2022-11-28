@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/styles';
 
-function TopicListView () {
+function TopicListView (props) {
     const [list, setList] = useState([]);
 
     useEffect(() => {
@@ -38,10 +38,10 @@ function TopicListView () {
     return (
         <>
           <ul className='topic-list-container'>
-              {list.map(topic => {
+              {props.topics.map(topic => {
                   return (
                     <li key={topic.id}>
-                      <div id='topic-name'>{topic.name}</div>
+                      <button id='topic-name' onClick={() => props.setSelectedTopic(topic.id)}>{topic.name}</button>
                       <div id='topic-sourceLang'>{topic.sourceLang}</div>
                       <div id='topic-targetLang'>{topic.targetLang}</div>
                       <button id='topic-delete-btn' onClick={() => {removeListItem(topic.id)}}></button>

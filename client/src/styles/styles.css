@@ -81,6 +81,7 @@
     border: 1px dashed var(--bg-color-light);
 }
 
+
 .topic-list-container li:hover {
     border-color: var(--line-color);
 }
@@ -91,8 +92,12 @@
     padding-left: 5px;
 }
 
-.topic-list-container li div#topic-name {
+.topic-list-container li button#topic-name {
+    all: unset;
     width: 68%;
+    height: 100%;
+
+    padding-left: 5px;
 }
 
 .topic-list-container li div#topic-sourceLang {
@@ -114,6 +119,7 @@
 .topic-list-container li button#topic-delete-btn:hover {
     background: rgb(224, 88, 88) center/85% url('../assets/trash-icon.png') no-repeat;
 }
+
 
 .topic-view-container {
     position: absolute;
@@ -152,27 +158,28 @@
 
 .topic-view-container li div {
     height: 100%;
-
     padding-left: 5px;
 }
 
 .topic-view-container li div#pair-source {
-    width: 68%;
+    float: left;
+    width: 48%;
 }
 
-.topic-view-container li div#pair-target {
-    width: 10%;
+.topic-view-container li div#pair-translation {
+    width: 48%;
 }
 
 .topic-view-container li button#pair-delete-btn {
     all: unset;
-    height: 100%;
-    width: 12%;
+    float: right;
+    height: 20px;
+    width: 3%;
 
     background-color: none;
 }
 
-.topic-view-container li button#topic-delete-btn:hover {
+.topic-view-container li button#pair-delete-btn:hover {
     background: rgb(224, 88, 88) center/85% url('../assets/trash-icon.png') no-repeat;
 }
 
@@ -342,8 +349,9 @@
     align-content: center;
 }
 
-.language-selector:hover .language-selector-content {display: block;}
-
+.language-selector:hover .language-selector-content {
+    display: block;
+}
 
 .grid-ctr {
     position: absolute;
@@ -386,7 +394,8 @@
     padding: 10px 10px 10px 10px;
  }
 
-.basic-grid > div:nth-child(n) {
+.basic-grid > button:nth-child(n) {
+    all: unset;
     display: flex;
     background: --var(--bg-color);
     border: 2px solid #36c79e;
@@ -404,7 +413,7 @@
     background-repeat: no-repeat;
  }
 
- .basic-grid > div div#src {
+ .basic-grid > button div#src {
   color: rgb(155, 155, 155);
   display: flex;
   width: minmax(120px, 240px);
@@ -415,7 +424,7 @@
   text-align:left;
  }
 
- .basic-grid > div div#trn {
+ .basic-grid > button div#trn {
   color: #fff;
   display: flex;
   width: minmax(120px, 240px);
@@ -426,14 +435,14 @@
   text-align:left;
 }
 
-.basic-grid > div div#mid {
+.basic-grid > button div#mid {
   width: 21px;
   height: auto;
   text-align: center;
   align-content: center;
 }
   
-.basic-grid > div:hover {
+.basic-grid > button:hover {
     border-color: #fff;
  }
 
