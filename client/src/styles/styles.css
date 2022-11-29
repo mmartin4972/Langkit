@@ -2,7 +2,7 @@
     --line-color: #36c79e;
     --line-color-light: #9eccbf;
     --bg-color: #151719;
-    --bg-color-light: #2e3337;
+    --bg-color-light: #3e454a;
     --font-color: #D2F9EE;
     --hover-color: #c79436;
     /* generic */
@@ -71,12 +71,19 @@
 }
 
 .topic-list-container li {
-    height: 3vh;
-    width: 12vw;
+    height: 2.6vh;
+    width: 13vw;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 
     border: 1px solid var(--bg-color-light);
+}
+
+.topic-list-container li#create-new-topic {
+    border-color: var(--line-color);
+    background-color: var(--line-color);
+    width: 15.8vw;
 }
 
 .topic-list-container li#selected {
@@ -98,18 +105,18 @@
 
 .topic-list-container li button#topic-name {
     all: unset;
-    width: 68%;
+    width: 66%;
     height: 100%;
 
     padding-left: 5px;
 }
 
 .topic-list-container li div#topic-sourceLang {
-    width: 10%;
+    width: 11%;
 }
 
 .topic-list-container li div#topic-targetLang {
-    width: 10%;
+    width: 11%;
 }
 
 .topic-list-container li button#topic-delete-btn {
@@ -283,14 +290,15 @@
     width: 8vh;
 
     border: 2px solid var(--bg-color-light);
+    border-radius: 5px;
     top: 4.7vh;
     left: 45vw;
 
-    background: var(--bg-color) center/85% url('../assets/save-icon.png') no-repeat;
+    background: var(--bg-color-light) center/85% url('../assets/save-edit-icon.png') no-repeat;
 }
 
 .app-view-container button#save:hover {
-    background: var(--bg-color) center/95% url('../assets/save-icon.png') no-repeat;
+    background: var(--bg-color-light) center/95% url('../assets/save-edit-icon.png') no-repeat;
 }
 
 .app-view-container button#add-topic {
@@ -313,10 +321,11 @@
 
 .language-select-container {
     position: absolute;
-    top: 8.5vh;
-    right: 2.2vw;
-    width: 32.5vw;
+    top: 10.5vh;
+    right: 11.7vw;
+    width: 24.2vw;
     height: 12vh;
+    font-size: x-large;
 }
 
 .language-selector {
@@ -327,17 +336,18 @@
     width: 90px;
 
     border: 2px solid var(--line-color);
-    border-radius: 5px;
 }
 
 .language-selector#left {
     float: left;
     margin-left: 80px;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .language-selector#right {
     float: right;
     margin-right: 80px;
+    border-radius: 0px 5px 5px 0px;
 }
 
 .dropbtn {
