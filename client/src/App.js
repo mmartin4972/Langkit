@@ -28,8 +28,6 @@ async function testFetch () {
 }
 
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -155,6 +153,15 @@ class App extends Component {
     this.setState({topics: newList});
   }
 
+  deleteTopic = (topicId) => {
+    const newList = [...this.state.topics]
+
+    newList.splice(topicId, 1);
+
+    this.setState({topics: newList});
+    this.setState({selectedTopic: 0});
+  }
+
   addPair = (source, translation) => {
     const newList = [...this.state.topics];
     var newSubList = newList[this.state.selectedTopic].list;
@@ -187,16 +194,38 @@ class App extends Component {
     this.setState({topics: newList});
   }
 
+  changeTopicName = () => {
+    let text = document.getElementById('topic-name-edit-box').innerHTML;
+
+    const list = [...this.state.topics]
+
+    console.log(text);
+
+    list[this.state.selectedTopic].name = text;
+
+    this.setState({topics: list});
+  }
+
   render() {
     return (
       <div className='app-view-container'>
         <button id='anki-export'></button>
-        <button id='save' onClick={testFetch}></button>
+        <button id='save' onClick={this.changeTopicName.bind(this)}></button>
         <button id='add-topic' onClick={this.createNewTopic.bind(this)}></button>
-        <TopicListView topics={this.state.topics} setSelectedTopic={this.setSelectedTopic.bind(this)}/>
-        <TopicView pairs={this.state.topics[this.state.selectedTopic].list} deletePair={this.deletePair.bind(this)} selectedTopicId={this.state.selectedTopic}/>
+        <TopicListView 
+          topics={this.state.topics} 
+          setSelectedTopic={this.setSelectedTopic.bind(this)} 
+          selectedTopic={this.state.selectedTopic} 
+          deleteTopic={this.deleteTopic.bind(this)}/>
+        <TopicView 
+          pairs={this.state.topics[this.state.selectedTopic].list} 
+          deletePair={this.deletePair.bind(this)} 
+          selectedTopicId={this.state.selectedTopic}
+          selectedTopicName={this.state.topics[this.state.selectedTopic].name}/>
         <CommandWindow />
-        <GenerationWindow pairs={this.state.cmd_window_pairs} addPair={this.addPair.bind(this)}/>
+        <GenerationWindow 
+          pairs={this.state.cmd_window_pairs} 
+          addPair={this.addPair.bind(this)}/>
       </div>
     );
   }

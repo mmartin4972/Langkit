@@ -37,7 +37,6 @@ function CommandWindow () {
             <div className='command-window'>
                 <div className="Input">
                     <input type="text" id="prompt-input" className="Input-text" placeholder="Prompt Box"/>
-                    <label htmlFor="input" className="Input-label">What kind of vocabulary do you want?</label>
                 </div>
             </div>
         </>
