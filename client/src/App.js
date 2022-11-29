@@ -28,8 +28,6 @@ async function testFetch () {
 }
 
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +35,13 @@ class App extends Component {
       topics: [
         {
           id: 0,
+          name: 'Create New Topic',
+          sourceLang: 'NONE',
+          targetLang: 'NONE',
+          list: []
+        },
+        {
+          id: 1,
           name: 'Fruit',
           sourceLang: 'ES',
           targetLang: 'EN',
@@ -59,7 +64,7 @@ class App extends Component {
           ]
         },
         {
-          id: 1,
+          id: 2,
           name: 'Fruit but Blue',
           sourceLang: 'ES',
           targetLang: 'EN',
@@ -82,7 +87,7 @@ class App extends Component {
           ]
         },
         {
-          id: 2,
+          id: 3,
           name: 'Fruit but bluer',
           sourceLang: 'ES',
           targetLang: 'EN',
@@ -98,7 +103,7 @@ class App extends Component {
               translation: 'Orange pero azul'
             },
             {
-              id: 3,
+              id: 2,
               source: 'Platana pero azul',
               translation: 'Banana pero azul'
             }
@@ -125,13 +130,12 @@ class App extends Component {
         {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
         {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
         {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'}
-    ],
-      selectedTopic: 0
+      ],
+      selectedTopic: 1
     };
   }
 
   setSelectedTopic = (newTopicId) => {
-    console.log("The button was clicked")
     this.setState({selectedTopic: newTopicId});
   }
 
@@ -148,11 +152,23 @@ class App extends Component {
       list: []
     });
 
+    let count = 0;
     for (let i = 0; i < newList.length; i++) {
       newList[i].id = i;
+      count = i;
     }
 
     this.setState({topics: newList});
+    this.setState({selectedTopic: count});
+  }
+
+  deleteTopic = (topicId) => {
+    var newList = [...this.state.topics]
+
+    newList.splice(topicId, 1);
+
+    this.setState({topics: newList});
+    this.setState({selectedTopic: 0});
   }
 
   addPair = (source, translation) => {
@@ -168,15 +184,21 @@ class App extends Component {
     for (let i = 0; i < newSubList.length; i++) {
       newSubList[i].id = i;
     }
+    
+
 
     this.setState({topics: newList});
   }
 
   deletePair = (pairId) => {
-    const newList = [...this.state.topics];
+    var newList = [...this.state.topics];
     var newSubList = newList[this.state.selectedTopic].list;
 
+    var copy = [...newSubList];
+    console.log(copy, "Splicing ", pairId);
     newSubList.splice(pairId, 1);
+    copy = [...newSubList];
+    console.log(copy);
 
     for (let i = 0; i < newSubList.length; i++) {
       newSubList[i].id = i;
@@ -187,16 +209,37 @@ class App extends Component {
     this.setState({topics: newList});
   }
 
+  changeTopicNameBoxValue = () => {
+    const text = document.getElementById('topic-name-edit-box').value;
+
+    const list = [...this.state.topics]
+
+    list[this.state.selectedTopic].name = text;
+
+    this.setState({topics: list});
+  }
+
   render() {
+    console.log(this.state.topics);
     return (
       <div className='app-view-container'>
         <button id='anki-export'></button>
-        <button id='save' onClick={testFetch}></button>
-        <button id='add-topic' onClick={this.createNewTopic.bind(this)}></button>
-        <TopicListView topics={this.state.topics} setSelectedTopic={this.setSelectedTopic.bind(this)}/>
-        <TopicView pairs={this.state.topics[this.state.selectedTopic].list} deletePair={this.deletePair.bind(this)} selectedTopicId={this.state.selectedTopic}/>
+        <TopicListView 
+          topics={this.state.topics} 
+          setSelectedTopic={this.setSelectedTopic.bind(this)} 
+          selectedTopic={this.state.selectedTopic} 
+          deleteTopic={this.deleteTopic.bind(this)}
+          createNewTopic={this.createNewTopic.bind(this)}/>
+        <TopicView 
+          pairs={this.state.topics[this.state.selectedTopic].list} 
+          deletePair={this.deletePair.bind(this)} 
+          selectedTopicId={this.state.selectedTopic}
+          selectedTopicName={this.state.topics[this.state.selectedTopic].name}
+          changeTopicNameBoxValue={this.changeTopicNameBoxValue.bind(this)}/>
         <CommandWindow />
-        <GenerationWindow pairs={this.state.cmd_window_pairs} addPair={this.addPair.bind(this)}/>
+        <GenerationWindow 
+          pairs={this.state.cmd_window_pairs} 
+          addPair={this.addPair.bind(this)}/>
       </div>
     );
   }

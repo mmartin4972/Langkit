@@ -2,7 +2,7 @@
     --line-color: #36c79e;
     --line-color-light: #9eccbf;
     --bg-color: #151719;
-    --bg-color-light: #2e3337;
+    --bg-color-light: #3e454a;
     --font-color: #D2F9EE;
     --hover-color: #c79436;
     /* generic */
@@ -59,31 +59,42 @@
     padding: 0;
     margin: 0;
 
-    top: 4vh;
+    top: 5vh;
     left: 0vw;
 
-    width: 16.66vw;
-    height: 95.53vh;
+    width: 16vw;
+    height: 90vh;
 
-    border: 2px solid var(--line-color);
-
-    border-radius: 0px 0px 0px 10px;
+    border-left: 2px solid var(--line-color);
 
     overflow-y: scroll;
 }
 
 .topic-list-container li {
-    height: 3vh;
-    width: 16.66vw;
+    height: 2.6vh;
+    width: 13vw;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 
-    border: 1px dashed var(--bg-color-light);
+    border: 1px solid var(--bg-color-light);
+}
+
+.topic-list-container li#create-new-topic {
+    border-color: var(--line-color);
+    background-color: var(--line-color);
+    width: 15.8vw;
+}
+
+.topic-list-container li#selected {
+    border-color: var(--line-color);
+    width: 15.8vw;
 }
 
 
 .topic-list-container li:hover {
     border-color: var(--line-color);
+    width: 15.8vw;
 }
 
 .topic-list-container li div {
@@ -94,18 +105,18 @@
 
 .topic-list-container li button#topic-name {
     all: unset;
-    width: 68%;
+    width: 66%;
     height: 100%;
 
     padding-left: 5px;
 }
 
 .topic-list-container li div#topic-sourceLang {
-    width: 10%;
+    width: 11%;
 }
 
 .topic-list-container li div#topic-targetLang {
-    width: 10%;
+    width: 11%;
 }
 
 .topic-list-container li button#topic-delete-btn {
@@ -127,17 +138,40 @@
     padding: 0;
     margin: 0;
 
-    top: 4vh;
-    left: 16.82vw;
+    top: 16vh;
+    left: 18vw;
 
     height: 95.53vh;
-    width: 45.83vw;
+    width: 36vw;
 
     overflow-y: scroll;
+}
 
-    border: var(--line-color);
-    border-width: 2px;
-    border-style: solid;
+.topic-name-box {
+    position: absolute;
+    top: 8vh;
+    left: 18vw;
+
+    font-size: x-large;
+    justify-content: center;
+    align-content: center;
+    padding-left: 10px;
+
+    border-bottom: 2px solid var(--bg-color-light);
+
+    height: 5vh;
+    width: 30vw;
+    background-color: none;
+}
+
+.topic-name-edit {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--font-color);
+    font-size: x-large;
+    width: 80%;
+    height: 100%;
 }
 
 .topic-view-container li {
@@ -147,9 +181,12 @@
     flex-direction: row;
 
     margin-top: -1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 
-    border-top: 1px solid var(--line-color);
-    border-bottom: 1px solid var(--line-color);
+
+    border-top: 1px solid var(--bg-color-light);
+    border-bottom: 1px solid var(--bg-color-light);
 }
 
 .topic-view-container li:hover {
@@ -217,7 +254,7 @@
     max-height: 12.7vh;
     width: 32.5vw;
     top: 19vh;
-    right: 2.3vw;
+    right: 8vw;
 }
 
 .prompt-box {
@@ -232,12 +269,11 @@
     all: unset;
     position: absolute;
 
-    height: 3.8vh;
-    width: 3.8vh;
+    height: 8.8vh;
+    width: 8.8vh;
 
-    border: 2px solid var(--line-color);
-    top: 0px;
-    left: 60.48vw;
+    top: 4.7vh;
+    left: 50vw;
 
     background: var(--bg-color) center/85% url('../assets/anki-icon.png') no-repeat;
 }
@@ -250,18 +286,19 @@
     all: unset;
     position: absolute;
 
-    height: 3.8vh;
-    width: 3.8vh;
+    height: 8vh;
+    width: 8vh;
 
-    border: 2px solid var(--line-color);
-    top: 0px;
-    left: 58.16vw;
+    border: 2px solid var(--bg-color-light);
+    border-radius: 5px;
+    top: 4.7vh;
+    left: 45vw;
 
-    background: var(--bg-color) center/85% url('../assets/save-icon.png') no-repeat;
+    background: var(--bg-color-light) center/85% url('../assets/save-edit-icon.png') no-repeat;
 }
 
 .app-view-container button#save:hover {
-    background: var(--bg-color) center/95% url('../assets/save-icon.png') no-repeat;
+    background: var(--bg-color-light) center/95% url('../assets/save-edit-icon.png') no-repeat;
 }
 
 .app-view-container button#add-topic {
@@ -284,10 +321,11 @@
 
 .language-select-container {
     position: absolute;
-    top: 8.5vh;
-    right: 2.2vw;
-    width: 32.5vw;
+    top: 10.5vh;
+    right: 11.7vw;
+    width: 24.2vw;
     height: 12vh;
+    font-size: x-large;
 }
 
 .language-selector {
@@ -298,17 +336,18 @@
     width: 90px;
 
     border: 2px solid var(--line-color);
-    border-radius: 5px;
 }
 
 .language-selector#left {
     float: left;
     margin-left: 80px;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .language-selector#right {
     float: right;
     margin-right: 80px;
+    border-radius: 0px 5px 5px 0px;
 }
 
 .dropbtn {
@@ -356,7 +395,7 @@
 .grid-ctr {
     position: absolute;
     height: 67.4vh;
-    width: 32.5vw;
+    width: 42.5vw;
     top: 18vh;
     right: 2vw;
     margin-top: 100px;
@@ -365,8 +404,6 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    border: 2px solid #fff;
-    border-radius: 5px;
 }
 
 .basic-grid:empty ~ .grid-ctr__label {
@@ -398,13 +435,14 @@
     all: unset;
     display: flex;
     background: --var(--bg-color);
-    border: 2px solid #36c79e;
+    border: 1px solid #36c79e;
+    shape-outside: var(--bg-color-light);
     font-size: 1rem;
     margin: 5px 5px 5px 5px;
     padding: 2px 2px 2px 2px;
     height: minmax(100px, auto);
     width: minmax(280px, 560px);
-    border-radius: 7px;
+    border-radius: 20px;
     transition: all 500ms;
     overflow: hidden;
 
@@ -436,7 +474,7 @@
 }
 
 .basic-grid > button div#mid {
-  width: 21px;
+  width: 10px;
   height: auto;
   text-align: center;
   align-content: center;
@@ -449,7 +487,7 @@
 .Input {
     position: absolute;
     border: 2px solid var(--line-color);
-    border-radius: 5px;
+    border-radius: 40px;
     height: 100%;
     width: 100%;
 }

@@ -7,11 +7,11 @@ function GenerationWindow (props) {
                 <div className="basic-grid" id="generated-vocab">
                     {props.pairs.map(pair => {
                             return (
-                                <button onClick={() => props.addPair(pair.source, pair.translation)}>
-                                    <div id='src'>{pair.source}</div>
-                                    <div id='mid'></div>
-                                    <div id='trn'>{pair.translation}</div>
-                                </button>
+                                    <button key={pair.id} onClick={() => props.addPair(pair.source, pair.translation)}>
+                                        <div id='src'>{pair.source}</div>
+                                        <div id='mid'></div>
+                                        <div id='trn'>{pair.translation}</div>
+                                    </button>
                             );
                         })
                     }
