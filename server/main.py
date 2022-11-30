@@ -163,7 +163,7 @@ openai.api_key = os.getenv("OPENAI_KEY")
 # TODO: We can do alot of stuff to properly configure this
 def query_gpt3(query, n_in=1, max_tokens_in=300) :
     out = openai.Completion.create(
-        model="text-davinci-002", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)
+        model="text-davinci-003", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)
         prompt=query,
         n=n_in,
         max_tokens=max_tokens_in,
