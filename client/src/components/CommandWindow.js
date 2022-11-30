@@ -16,21 +16,33 @@ function CommandWindow (props) {
         <>
             <div className='language-select-container'>
                 <div className='language-selector' id='left'>
-                    <button className="dropbtn" id='source-selector'>EN</button>
+                    <button className="dropbtn" id='source-selector'>en</button>
                     <div className="language-selector-content">
-                        <button onClick={() => setSourceSelectorValue('EN')}>EN</button>
-                        <button onClick={() => setSourceSelectorValue('ES')}>ES</button>
-                        <button onClick={() => setSourceSelectorValue('ZH')}>ZH</button>
-                        <button onClick={() => setSourceSelectorValue('RU')}>RU</button>
+                        <button onClick={() => setSourceSelectorValue('en')}>en</button>
+                        <button onClick={() => setSourceSelectorValue('es')}>es</button>
+                        <button onClick={() => setSourceSelectorValue('zh')}>zh</button>
+                        <button onClick={() => setSourceSelectorValue('ru')}>ru</button>
+                        <button onClick={() => setSourceSelectorValue('hi')}>hi</button>
+                        <button onClick={() => setSourceSelectorValue('fr')}>fr</button>
+                        <button onClick={() => setSourceSelectorValue('ar')}>ar</button>
+                        <button onClick={() => setSourceSelectorValue('bn')}>bn</button>
+                        <button onClick={() => setSourceSelectorValue('pt')}>pt</button>
+                        <button onClick={() => setSourceSelectorValue('id')}>id</button>
                     </div>
                 </div>
                 <div className='language-selector' id='right'>
-                    <button className="dropbtn" id='target-selector'>ES</button>
+                    <button className="dropbtn" id='target-selector'>es</button>
                     <div className="language-selector-content">
-                        <button onClick={() => setTargetSelectorValue('EN')}>EN</button>
-                        <button onClick={() => setTargetSelectorValue('ES')}>ES</button>
-                        <button onClick={() => setTargetSelectorValue('ZH')}>ZH</button>
-                        <button onClick={() => setTargetSelectorValue('RU')}>RU</button>
+                        <button onClick={() => setTargetSelectorValue('en')}>en</button>
+                        <button onClick={() => setTargetSelectorValue('es')}>es</button>
+                        <button onClick={() => setTargetSelectorValue('zh')}>zh</button>
+                        <button onClick={() => setTargetSelectorValue('ru')}>ru</button>
+                        <button onClick={() => setTargetSelectorValue('hi')}>hi</button>
+                        <button onClick={() => setTargetSelectorValue('fr')}>fr</button>
+                        <button onClick={() => setTargetSelectorValue('ar')}>ar</button>
+                        <button onClick={() => setTargetSelectorValue('bn')}>bn</button>
+                        <button onClick={() => setTargetSelectorValue('pt')}>pt</button>
+                        <button onClick={() => setTargetSelectorValue('id')}>id</button>
                     </div>
                 </div>
             </div>
