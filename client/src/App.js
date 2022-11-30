@@ -133,11 +133,13 @@ class App extends Component {
   submitPrompt = async () => {
     const sourceLang = document.getElementById('source-selector').innerHTML;
     const targetLang = document.getElementById('target-selector').innerHTML;
+    var prompt = document.getElementById('prompt-input').value;
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
       body: JSON.stringify([{
-        cmd: 'Generate me phrases about a dinner party',
+        cmd: prompt,
         from: sourceLang,
         to: targetLang
       }])
@@ -147,11 +149,7 @@ class App extends Component {
       .then(response => {console.log(response); return response.json();})
       .then(res => {
         console.log(res);
-        /*
-        let a = Array.from(res);
-        for (let i = 0; i < a.length; i++) {
-          console.log(a[i]);
-        }*/
+
       })
       .catch(error => console.log(error));
   }
@@ -274,7 +272,6 @@ class App extends Component {
     
     this.setState({topics: newList});
   }
-
 
   render() {
     console.log(this.state.topics);

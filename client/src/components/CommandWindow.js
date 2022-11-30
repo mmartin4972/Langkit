@@ -28,6 +28,10 @@ function CommandWindow (props) {
                         <button onClick={() => setSourceSelectorValue('bn')}>bn</button>
                         <button onClick={() => setSourceSelectorValue('pt')}>pt</button>
                         <button onClick={() => setSourceSelectorValue('id')}>id</button>
+                        <button onClick={() => setSourceSelectorValue('ur')}>ur</button>
+                        <button onClick={() => setSourceSelectorValue('ja')}>ja</button>
+                        <button onClick={() => setSourceSelectorValue('de')}>de</button>
+                        <button onClick={() => setSourceSelectorValue('te')}>te</button>
                     </div>
                 </div>
                 <div className='language-selector' id='right'>
@@ -43,6 +47,10 @@ function CommandWindow (props) {
                         <button onClick={() => setTargetSelectorValue('bn')}>bn</button>
                         <button onClick={() => setTargetSelectorValue('pt')}>pt</button>
                         <button onClick={() => setTargetSelectorValue('id')}>id</button>
+                        <button onClick={() => setTargetSelectorValue('ur')}>ur</button>
+                        <button onClick={() => setTargetSelectorValue('js')}>js</button>
+                        <button onClick={() => setTargetSelectorValue('de')}>de</button>
+                        <button onClick={() => setTargetSelectorValue('te')}>te</button>
                     </div>
                 </div>
             </div>
