@@ -199,7 +199,7 @@ def process():
     req = request.json
 
     # Classify the command
-    parsed = parse_cmd(req['cmd'])
+    parsed = parse_cmd(req[0]['cmd'])
 
     func = parsed['FUNC']
     param = parsed['PARAM']
@@ -207,22 +207,22 @@ def process():
     # Get information to translate
     generated_strings = []
     if 'GEN_PHRASE' == func:
-        res = query_gpt3(prompt_engineer(param, "phrases"))
-        generated_strings = get_choices(res[0])
+        r = query_gpt3(prompt_engineer(param, "phrases"))
+        generated_strings = get_choices(r[0])
     elif 'GEN_WORD' == func :
-        res = query_gpt3(prompt_engineer(param, "words"))
-        generated_strings = get_choices(res[0])
+        r = query_gpt3(prompt_engineer(param, "words"))
+        generated_strings = get_choices(r[0])
     elif 'TRANS' == func:
         generated_strings = param.split(', ')
     else:
-        res = query_gpt3(prompt_engineer(param, "other"))
-        generated_strings = get_choices(res[0])
+        r = query_gpt3(prompt_engineer(param, "other"))
+        generated_strings = get_choices(r[0])
     
     # Translate
     res = []
     for s in generated_strings:
-        source = translate_text(s, target=req['from'])
-        target = translate_text(s, target=req['to'])
+        source = translate_text(s, target=req[0]['from'])
+        target = translate_text(s, target=req[0]['to'])
         res.append({'source': source, 'translation': target})
     
     return jsonify(res)
