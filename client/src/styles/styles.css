@@ -393,7 +393,7 @@
     right: 11.7vw;
     width: 24.2vw;
     height: 12vh;
-    font-size: x-large;
+    font-size: large;
 }
 
 .language-selector {
@@ -427,9 +427,11 @@
     margin-left: 20px;
     align-content: center;
 
+    vertical-align: middle;
+
     color: var(--font-color);
     padding: 16px;
-    font-size: 16px;
+    font-size: large;
     border: none;
 }
 
