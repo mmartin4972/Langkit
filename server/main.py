@@ -111,13 +111,13 @@ def prompt_engineer (topic: str, ty: str):
 
         1. Five complex phrases as a numbered list related to "%s"
 
-        2. Five short phrases as a numbered list related to "%s"'''
+        2. Five short phrases as a numbered list related to "%s"''' % (topic, topic, topic)
     elif ty == 'words':
         s = '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate the following as lists:
 
         1. Five complex words as a numbered list related to "%s"
 
-        2. Five short words as a numbered list related to "%s"'''
+        2. Five short words as a numbered list related to "%s"''' % (topic, topic, topic)
     elif ty == 'other':
         s = '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate perfectly formatted the following:
 
@@ -127,41 +127,51 @@ def prompt_engineer (topic: str, ty: str):
 
         3. Three medium sentences as a numbered list related to "%s"
 
-        4. Eight phrases as a numbered list related to "%s"'''
+        4. Eight phrases as a numbered list related to "%s"''' % (topic, topic, topic, topic, topic)
     
-    return s % topic
+    print("Parsed")
+    print(s)
+    return s
 
 
 def get_choices (s: str):
-    extracted = []
-    buildastring = ''
-    read_mode = False
+    s = s.strip()
+    clean_s = ""
     for c in s:
-        if read_mode:
-            if c == '\n':
-                read_mode = False
-                extracted.append(buildastring)
-                buildastring = ''
-                continue
-            buildastring += c
-        elif c == ' ':
-            read_mode = True
+        if c.isalpha() or c == "," or c == " " :
+            clean_s += c
+    return clean_s.split(', ') 
 
-    return extracted
+    # extracted = []
+    # buildastring = ''
+    # read_mode = False
+    # for c in s:
+    #     if read_mode:
+    #         if c == '\n':
+    #             read_mode = False
+    #             extracted.append(buildastring)
+    #             buildastring = ''
+    #             continue
+    #         buildastring += c
+    #     elif c == ' ':
+    #         read_mode = True
+
+    # return extracted
 
 
 openai.api_key = os.getenv("OPENAI_KEY")
 # TODO: We can do alot of stuff to properly configure this
 def query_gpt3(query, n_in=1, max_tokens_in=300) :
     out = openai.Completion.create(
-        model="text-davinci-003", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)
+        model="text-davinci-002", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)
         prompt=query,
         n=n_in,
         max_tokens=max_tokens_in,
     )
+    print(out)
     res = []
     for choice in out['choices']:
-        res.append(choice['text'][0])
+        res.append(choice['text'])
 
     return res[0]
 
@@ -191,16 +201,22 @@ def process():
     generated_strings = []
     if 'GEN_PHRASE' == func:
         r = query_gpt3(prompt_engineer(param, "phrases"))
-        generated_strings = get_choices(r[0])
+        generated_strings = get_choices(r)
     elif 'GEN_WORD' == func:
         r = query_gpt3(prompt_engineer(param, "words"))
-        generated_strings = get_choices(r[0])
+        generated_strings = []
+        for choice in get_choices(r) :
+            print(choice)
+            for word in choice.split(', ') :
+                print(word)
+                generated_strings.append(word)
     elif 'TRANS' == func:
         generated_strings = param.split(', ')
     else:
         r = query_gpt3(prompt_engineer(param, "other"))
-        generated_strings = get_choices(r[0])
+        generated_strings = get_choices(r)
     
+    print ("Generate string", generated_strings)
     # Translate
     res = []
     for s in generated_strings:

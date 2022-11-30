@@ -85,6 +85,9 @@ for _, annotations in TRAIN_DATA:
     for ent in annotations.get('entities'):
         ner.add_label(ent[2])
 
+for pipe in nlp.pipe_names :
+    print(pipe)
+    
 other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
 with nlp.disable_pipes(*other_pipes):  # only train NER
     optimizer = nlp.begin_training()

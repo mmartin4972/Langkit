@@ -9,7 +9,7 @@ data = [
 headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
 
 res = requests.post(url + "/parse-cmd", json=data)
-print(res.json())
+# print(res.json())
 '''
 data1 = [
     {"from": "en", "to": "es", "text": "the school is on fire"}
@@ -26,11 +26,15 @@ print(res1.json())
 # data3 = [{'cmd':'generate me phrases about orange birds', 'to':'es', 'from':'en'}]
 # res3 = requests.post(url + "/process", json=data3)
 # print(res3.json())
-
+'''
 data4 = [{'cmd':'Generate a word about a dinner party', 'to':'es', 'from':'en'}]
 res4 = requests.post(url + "/process", json=data4)
 print(res4.json())
 
+data6 = [{'cmd':'Generate a phrase about a dinner party', 'to':'es', 'from':'en'}]
+res6 = requests.post(url + "/process", json=data6)
+print(res6.json())
+
 data5 = [{'cmd':'translate the word orange', 'to':'es', 'from':'en'}]
 res5 = requests.post(url + "/process", json=data5)
-print(res5.json())'''
+print(res5.json())
