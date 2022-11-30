@@ -109,15 +109,15 @@ def prompt_engineer (topic: str, ty: str):
     if ty == 'phrases':
         s = '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate the following as lists:
 
-        1. Five complex phrases as a numbered list related to "%s"
+        1. Five complex phrases as a list related to "%s"
 
-        2. Five short phrases as a numbered list related to "%s"''' % (topic, topic, topic)
+        2. Five short phrases as a list related to "%s"''' % (topic, topic, topic)
     elif ty == 'words':
         s = '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate the following as lists:
 
-        1. Five complex words as a numbered list related to "%s"
+        1. Five complex words as a list related to "%s"
 
-        2. Five short words as a numbered list related to "%s"''' % (topic, topic, topic)
+        2. Five short words as a list related to "%s"''' % (topic, topic, topic)
     elif ty == 'other':
         s = '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate perfectly formatted the following:
 

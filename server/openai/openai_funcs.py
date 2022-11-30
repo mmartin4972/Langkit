@@ -2,7 +2,7 @@ import openai
 # from key import api_key
 #                  30 requests ~~ 0.03 cents
 
-openai.api_key = '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'
+# openai.api_key = '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'
 
 def get_prompt_string(input):
     prompt = '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate perfectly formatted the following:
