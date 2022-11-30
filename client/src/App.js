@@ -138,12 +138,12 @@ class App extends Component {
       headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
       body: JSON.stringify([{ 
         cmd: 'Generate me phrases about a dinner party' ,
-        sourceLang: sourceLang,
-        targetLang: targetLang
+        to: sourceLang,
+        from: targetLang
       }])
     };
   
-    fetch('/parse-cmd', requestOptions)
+    fetch('/process', requestOptions)
       .then(response => {console.log(response); return response.json();})
       .then(res => {
         console.log(res);
