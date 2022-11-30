@@ -5,33 +5,6 @@ import CommandWindow from './components/CommandWindow';
 import GenerationWindow from './components/GenerationWindow';
 import { Component } from 'react';
  
-
-
-async function testFetch (sourceLang, targetLang) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-    body: JSON.stringify([{ 
-      cmd: 'Generate me phrases about a dinner party' ,
-      sourceLang: sourceLang,
-      targetLang: targetLang
-    }])
-  };
-
-  fetch('/parse-cmd', requestOptions)
-    .then(response => {console.log(response); return response.json();})
-    .then(res => {
-      console.log(res);
-      /*
-      let a = Array.from(res);
-      for (let i = 0; i < a.length; i++) {
-        console.log(a[i]);
-      }*/
-    })
-    .catch(error => console.log(error));
-}
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -155,6 +128,32 @@ class App extends Component {
       ],
       selectedTopic: 1
     };
+  }
+
+  submitPrompt = async () => {
+    const sourceLang = document.getElementById('source-selector').innerHTML;
+    const targetLang = document.getElementById('target-selector').innerHTML;
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+      body: JSON.stringify([{ 
+        cmd: 'Generate me phrases about a dinner party' ,
+        sourceLang: sourceLang,
+        targetLang: targetLang
+      }])
+    };
+  
+    fetch('/parse-cmd', requestOptions)
+      .then(response => {console.log(response); return response.json();})
+      .then(res => {
+        console.log(res);
+        /*
+        let a = Array.from(res);
+        for (let i = 0; i < a.length; i++) {
+          console.log(a[i]);
+        }*/
+      })
+      .catch(error => console.log(error));
   }
 
   setSelectedTopic = (newTopicId) => {
@@ -295,7 +294,8 @@ class App extends Component {
           changeTopicNameBoxValue={this.changeTopicNameBoxValue.bind(this)}
           hideOrRevealTile={this.hideOrRevealTile.bind(this)}
           flipSourceOrTranslations={this.flipSourceOrTranslations.bind(this)}/>
-        <CommandWindow />
+        <CommandWindow
+          submitPrompt={this.submitPrompt.bind(this)}/>
         <GenerationWindow 
           pairs={this.state.cmd_window_pairs} 
           addPair={this.addPair.bind(this)}/>

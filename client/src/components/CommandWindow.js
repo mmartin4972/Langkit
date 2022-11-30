@@ -1,6 +1,6 @@
 import '../styles/styles'
 
-function CommandWindow () {
+function CommandWindow (props) {
 
     function setSourceSelectorValue(val) {
         const selector = document.getElementById("source-selector");
@@ -38,7 +38,7 @@ function CommandWindow () {
                 <div className="Input">
                     <input type="text" id="prompt-input" className="Input-text" placeholder="Prompt Box"/>
                 </div>
-                <button id='prompt-submit-button'>Submit</button>
+                <button id='prompt-submit-button' onClick={() => props.submitPrompt()}>Submit</button>
             </div>
         </>
     );

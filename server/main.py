@@ -94,30 +94,30 @@ def parse_cmd(cmd) :
 
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd_point():
-    # cmds = request.json
-    # res = parse_cmd(cmds['cmd'])
+    cmds = request.json
+    res = parse_cmd(cmds['cmd'])
 
-    # sourceLanguage = cmds['sourceLang'].lower()
-    # targetLanguage = cmds['targetLang'].lower()
+    sourceLanguage = cmds['sourceLang'].lower()
+    targetLanguage = cmds['targetLang'].lower()
 
-    # phrases = query_gpt3(res['PARAM'])
+    phrases = query_gpt3(res['PARAM'])
 
-    # jsonified_phrases = []
+    jsonified_phrases = []
 
-    # for p in phrases:
-    #     if sourceLanguage == 'EN':
-    #         jsonified_phrases.append({'source': p, 'translation': translate_text(p, target=targetLanguage)})
-    #     else:
-    #         jsonified_phrases.append({'source': translate_text(p, target=sourceLanguage), 'translation': translate_text(p, target=targetLanguage)})
+    for p in phrases:
+        if sourceLanguage == 'EN':
+            jsonified_phrases.append({'source': p, 'translation': translate_text(p, target=targetLanguage)})
+        else:
+            jsonified_phrases.append({'source': translate_text(p, target=sourceLanguage), 'translation': translate_text(p, target=targetLanguage)})
             
-    # return jsonify(phrases)
-    cmds = request.json	
-    res = []	
+    return jsonify(phrases)
+    # cmds = request.json	
+    # res = []	
     	
-    for cmd in cmds :	
-        res.append(parse_cmd(cmd['cmd']))	
+    # for cmd in cmds :	
+    #     res.append(parse_cmd(cmd['cmd']))	
         	
-    return jsonify(res)
+    # return jsonify(res)
 
 
 def prompt_engineer (topic: str):
