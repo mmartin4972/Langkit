@@ -41,7 +41,7 @@ class WordEmbedder:
         indices=[[row,col] for row in range(len(ids)) for col in range(len(ids[row]))]
         return (values, indices, dense_shape)
 
-    def get_embedding(self, messages:[str]) :
+    def get_embedding(self, messages: list[str]) :
         values, indices, dense_shape = self.process_to_IDs_in_sparse_format(messages)
 
         message_embeddings = self.sess.run(

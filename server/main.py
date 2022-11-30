@@ -75,54 +75,73 @@ def parse_cmd(cmd) :
 
     return elt
 
+
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd_point():
-
-    # d = [
-    #     {
-    #         'id': 0,
-    #         'name': 'Fruit',
-    #         'sourceLang': 'en',
-    #         'targetLang': 'es'
-    #     },
-    #     {
-    #         'id': 1,
-    #         'name': 'Fruit but blue',
-    #         'sourceLang': 'en',
-    #         'targetLang': 'es'
-    #     },
-    #     {
-    #         'id': 2,
-    #         'name': 'Fruit, still',
-    #         'sourceLang': 'en',
-    #         'targetLang': 'es'
-    #     }
-    # ]
-
-    # return jsonify(d)
-
     cmds = request.json
-    res = []
-    
-    for cmd in cmds :
-        res.append(parse_cmd(cmd['cmd']))
-        
-    return jsonify(res)
+    res = parse_cmd(cmds['cmd'])
+
+    sourceLanguage = cmds['sourceLang'].lower()
+    targetLanguage = cmds['targetLang'].lower()
+
+    phrases = query_gpt3(res['PARAM'])
+
+    jsonified_phrases = []
+
+    for p in phrases:
+        if sourceLanguage == 'EN':
+            jsonified_phrases.append({'source': p, 'translation': translate_text(p, target=targetLanguage)})
+        else:
+            jsonified_phrases.append({'source': translate_text(p, target=sourceLanguage), 'translation': translate_text(p, target=targetLanguage)})
+            
+    return jsonify(phrases)
+
+
+def prompt_engineer (topic: str):
+    return '''You are a teacher building a vocabulary list for your students on the topic "%s". You will generate perfectly formatted the following:
+
+    1. Three complex sentences
+
+    2. Three short sentences
+
+    3. Three medium sentences
+
+    4. Eight phrases''' % topic
+
+
+def get_choices (s: str):
+    extracted = []
+    buildastring = ''
+    read_mode = False
+    for c in s:
+        if read_mode:
+            if c == '\n':
+                read_mode = False
+                extracted.append(buildastring)
+                buildastring = ''
+                continue
+            buildastring += c
+        elif c == ' ':
+            read_mode = True
+
+    return extracted
 
 
 openai.api_key = os.getenv("OPENAI_KEY")
 # TODO: We can do alot of stuff to properly configure this
-def query_gpt3(query, n_in=5, max_tokens_in=20) :
+def query_gpt3(query, n_in=1, max_tokens_in=245) :
     out = openai.Completion.create(
         model="text-davinci-003", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)
-        prompt=query,
+        prompt=prompt_engineer(query),
         n=n_in,
         max_tokens=max_tokens_in,
     )
     res = []
     for choice in out['choices'] :
-        res.append(choice['text'])
+        res = get_choices(choice['text'][0])
+
     return res
+
 
 @app.route('/naive-gpt3-res', methods=['POST'])
 def naive_gtp3_res():

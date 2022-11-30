@@ -2,14 +2,14 @@ import requests
 
 local_url = 'http://127.0.0.1:5000'
 prod_url = 'https://langkit-prod.herokuapp.com'
-url = local_url
+url = prod_url
 data = [
-    {'cmd': 'Generate me phrases about a dinner party'}
+    {'cmd': 'Generate a word about a dinner party'}
 ]
 headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
 
 res = requests.post(url + "/parse-cmd", json=data)
-print(res)
+print(res.json())
 '''
 data1 = [
     {"from": "en", "to": "es", "text": "the school is on fire"}

@@ -7,17 +7,21 @@ import GenerationWindow from './components/GenerationWindow';
 import { Component } from 'react';
 
 
-async function testFetch () {
+async function testFetch (sourceLang, targetLang) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-    body: JSON.stringify({ cmd: 'Generate me phrases about a dinner party' })
+    body: JSON.stringify([{ 
+      cmd: 'Generate me phrases about a dinner party' ,
+      sourceLang: sourceLang,
+      targetLang: targetLang
+    }])
   };
 
   fetch('/parse-cmd', requestOptions)
     .then(response => {console.log(response); return response.json();})
     .then(res => {
-      console.log(Array.from(res));
+      console.log(res);
       /*
       let a = Array.from(res);
       for (let i = 0; i < a.length; i++) {
