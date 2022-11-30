@@ -175,6 +175,20 @@ def query_gpt3(query, n_in=1, max_tokens_in=300) :
 
     return res[0]
 
+# TODO: We can do alot of stuff to properly configure this	
+def query_gpt3_old(query, n_in=5, max_tokens_in=20) :	
+    out = openai.Completion.create(	
+        model="text-davinci-002", # could also use text-cure-001 or any other models on this page (https://beta.openai.com/docs/models/gpt-3)	
+        prompt=query,	
+        n=n_in,	
+        max_tokens=max_tokens_in,	
+    )
+    print(out)
+    res = []	
+    for choice in out['choices'] :	
+        res.append(choice['text'])
+    print(res)
+    return res
 
 @app.route('/translate', methods=['POST'])
 def quick_translate():
@@ -198,28 +212,25 @@ def process():
     param = parsed['PARAM']
 
     # Get information to translate
-    generated_strings = []
-    if 'GEN_PHRASE' == func:
-        r = query_gpt3(prompt_engineer(param, "phrases"))
-        generated_strings = get_choices(r)
-    elif 'GEN_WORD' == func:
-        r = query_gpt3(prompt_engineer(param, "words"))
-        generated_strings = []
-        for choice in get_choices(r) :
-            print(choice)
-            for word in choice.split(', ') :
-                print(word)
-                generated_strings.append(word)
-    elif 'TRANS' == func:
-        generated_strings = param.split(', ')
-    else:
-        r = query_gpt3(prompt_engineer(param, "other"))
-        generated_strings = get_choices(r)
+    src_trans = []	
+    if 'GEN_PHRASE' == func :	
+        print("Generate phrase about " + param)	
+        src_trans = query_gpt3_old("generate one short sentence about " + param)	
+    elif 'GEN_WORD' == func :	
+        print("Generate words about " + param)	
+        src_trans = query_gpt3_old("generate one word related to " + param)	
+    elif 'TRANS' == func :	
+        print("Translate")	
+        src_trans = [param]	
+    else : # Unknown catch all case will just translate the input	
+        print("Unknown")	
+        src_trans = [req[0]['cmd']] # TODO: NOT SURE IF THIS WORKS
     
-    print ("Generate string", generated_strings)
+    # print ("Generate string", generated_strings)
     # Translate
     res = []
-    for s in generated_strings:
+    for s in src_trans:
+        s = s.strip()
         source = translate_text(s, target=req[0]['from'])
         target = translate_text(s, target=req[0]['to'])
         res.append({'source': source, 'translation': target})

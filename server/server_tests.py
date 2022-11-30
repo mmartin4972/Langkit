@@ -2,7 +2,7 @@ import requests
 
 local_url = 'http://127.0.0.1:5000'
 prod_url = 'https://langkit-prod.herokuapp.com'
-url = prod_url
+url = local_url
 data = [
     {'cmd': 'Generate a word about a dinner party'}
 ]
@@ -27,11 +27,11 @@ print(res1.json())
 # res3 = requests.post(url + "/process", json=data3)
 # print(res3.json())
 '''
-data4 = [{'cmd':'Generate a word about climbing a mountain', 'to':'es', 'from':'en'}]
+data4 = [{'cmd':'Generate a word about dinner parties', 'to':'es', 'from':'en'}]
 res4 = requests.post(url + "/process", json=data4)
 print(res4.json())
 
-data6 = [{'cmd':'Generate a phrase about running a mile', 'to':'es', 'from':'en'}]
+data6 = [{'cmd':'Generate a phrase about dinosaur dinner parties', 'to':'es', 'from':'en'}]
 res6 = requests.post(url + "/process", json=data6)
 print(res6.json())
 
