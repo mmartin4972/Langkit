@@ -3,7 +3,6 @@ import TopicListView from './components/TopicListView';
 import TopicView from './components/TopicView';
 import CommandWindow from './components/CommandWindow';
 import GenerationWindow from './components/GenerationWindow';
-
 import { Component } from 'react';
 
 
@@ -227,7 +226,7 @@ class App extends Component {
     console.log(this.state.topics);
     return (
       <div className='app-view-container'>
-        <button id='anki-export' onClick={testFetch}></button>
+        <button id='anki-export' onClick={() => {testFetch("ES", "EN")}}></button>
         <TopicListView 
           topics={this.state.topics} 
           setSelectedTopic={this.setSelectedTopic.bind(this)} 
