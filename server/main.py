@@ -135,28 +135,28 @@ def prompt_engineer (topic: str, ty: str):
 
 
 def get_choices (s: str):
-    s = s.strip()
-    clean_s = ""
-    for c in s:
-        if c.isalpha() or c == "," or c == " " :
-            clean_s += c
-    return clean_s.split(', ') 
-
-    # extracted = []
-    # buildastring = ''
-    # read_mode = False
+    # s = s.strip()
+    # clean_s = ""
     # for c in s:
-    #     if read_mode:
-    #         if c == '\n':
-    #             read_mode = False
-    #             extracted.append(buildastring)
-    #             buildastring = ''
-    #             continue
-    #         buildastring += c
-    #     elif c == ' ':
-    #         read_mode = True
+    #     if c.isalpha() or c == "," or c == " " :
+    #         clean_s += c
+    # return clean_s.split(', ') 
 
-    # return extracted
+    extracted = []
+    buildastring = ''
+    read_mode = False
+    for c in s:
+        if read_mode:
+            if c == '\n':
+                read_mode = False
+                extracted.append(buildastring)
+                buildastring = ''
+                continue
+            buildastring += c
+        elif c == ' ':
+            read_mode = True
+
+    return extracted
 
 
 openai.api_key = os.getenv("OPENAI_KEY")

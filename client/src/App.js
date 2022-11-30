@@ -19,125 +19,28 @@ class App extends Component {
         },
         {
           id: 1,
-          name: 'Fruit',
-          sourceLang: 'ES',
-          targetLang: 'EN',
-          list: [
-            {
-              id: 0,
-              source: 'Manzana',
-              translation: 'Apple',
-              sHidden: false,
-              tHidden: false,
-            },
-            {
-              id: 1,
-              source: 'Naranja',
-              translation: 'Orange',
-              sHidden: false,
-              tHidden: false,
-            },
-            {
-              id: 2,
-              source: 'Platana',
-              translation: 'Banana',
-              sHidden: false,
-              tHidden: false,
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: 'Fruit but Blue',
-          sourceLang: 'ES',
-          targetLang: 'EN',
-          list: [
-            {
-              id: 0,
-              source: 'Manzana pero azul',
-              translation: 'Apple but blue',
-              sHidden: false,
-              tHidden: false,
-            },
-            {
-              id: 1,
-              source: 'Naranja pero azul',
-              translation: 'Orange but blue',
-              sHidden: false,
-              tHidden: false,
-            },
-            {
-              id: 2,
-              source: 'Platana pero azul',
-              translation: 'Banana but blue',
-              sHidden: false,
-              tHidden: false,
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: 'Fruit but bluer',
-          sourceLang: 'ES',
-          targetLang: 'EN',
-          list: [
-            {
-              id: 0,
-              source: 'Manzana pero azul',
-              translation: 'Apple but blue',
-              sHidden: false,
-              tHidden: false,
-            },
-            {
-              id: 1,
-              source: 'Naranja pero azul',
-              translation: 'Orange but blue',
-              sHidden: false,
-              tHidden: false,
-            },
-            {
-              id: 2,
-              source: 'Platana pero azul',
-              translation: 'Banana but blue',
-              sHidden: false,
-              tHidden: false,
-            }
-          ]
+          name: 'New Topic',
+          sourceLang: 'en',
+          targetLang: 'es',
+          list: []
         }
       ],
-      cmd_window_pairs: [
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Word One', 'translation': 'Word One'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frentTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoe de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el Togepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenoTogepi es en el frente de yo, y mira buenofrente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'},
-        {'source': 'Togepi is in front of me and looks nice', 'translation': 'Togepi es en el frente de yo, y mira bueno'}
-      ],
+      cmd_window_pairs: [],
       selectedTopic: 1
     };
   }
 
   submitPrompt = async () => {
-    const sourceLang = document.getElementById('source-selector').innerHTML;
-    const targetLang = document.getElementById('target-selector').innerHTML;
+    var sourceLang = document.getElementById('source-selector').innerHTML;
+    var targetLang = document.getElementById('target-selector').innerHTML;
+    var prompt = document.getElementById('prompt-input').value;
+
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
       body: JSON.stringify([{
-        cmd: 'Generate me phrases about a dinner party',
+        cmd: prompt,
         from: sourceLang,
         to: targetLang
       }])
@@ -147,11 +50,22 @@ class App extends Component {
       .then(response => {console.log(response); return response.json();})
       .then(res => {
         console.log(res);
-        /*
-        let a = Array.from(res);
-        for (let i = 0; i < a.length; i++) {
-          console.log(a[i]);
-        }*/
+
+        var array = [...this.state.cmd_window_pairs]
+
+        while (array.length > 0) {
+          array.pop();
+        }
+
+        for (let i = 0; i < res.length; i++) {
+          array.push({
+            id: i,
+            source: res[i].source,
+            translation: res[i].translation
+          });
+        }
+
+        this.setState({cmd_window_pairs: array});
       })
       .catch(error => console.log(error));
   }
@@ -274,7 +188,6 @@ class App extends Component {
     
     this.setState({topics: newList});
   }
-
 
   render() {
     console.log(this.state.topics);
