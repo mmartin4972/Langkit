@@ -38,6 +38,7 @@ function CommandWindow () {
                 <div className="Input">
                     <input type="text" id="prompt-input" className="Input-text" placeholder="Prompt Box"/>
                 </div>
+                <button id='prompt-submit-button'>Submit</button>
             </div>
         </>
     );

@@ -4,6 +4,7 @@ import TopicView from './components/TopicView';
 import CommandWindow from './components/CommandWindow';
 import GenerationWindow from './components/GenerationWindow';
 import { Component } from 'react';
+ 
 
 
 async function testFetch (sourceLang, targetLang) {
@@ -52,17 +53,23 @@ class App extends Component {
             {
               id: 0,
               source: 'Manzana',
-              translation: 'Apple'
+              translation: 'Apple',
+              sHidden: false,
+              tHidden: false,
             },
             {
               id: 1,
               source: 'Naranja',
-              translation: 'Orange'
+              translation: 'Orange',
+              sHidden: false,
+              tHidden: false,
             },
             {
               id: 2,
               source: 'Platana',
-              translation: 'Banana'
+              translation: 'Banana',
+              sHidden: false,
+              tHidden: false,
             }
           ]
         },
@@ -75,17 +82,23 @@ class App extends Component {
             {
               id: 0,
               source: 'Manzana pero azul',
-              translation: 'Apple but blue'
+              translation: 'Apple but blue',
+              sHidden: false,
+              tHidden: false,
             },
             {
               id: 1,
               source: 'Naranja pero azul',
-              translation: 'Orange but blue'
+              translation: 'Orange but blue',
+              sHidden: false,
+              tHidden: false,
             },
             {
               id: 2,
               source: 'Platana pero azul',
-              translation: 'Banana but blue'
+              translation: 'Banana but blue',
+              sHidden: false,
+              tHidden: false,
             }
           ]
         },
@@ -98,17 +111,23 @@ class App extends Component {
             {
               id: 0,
               source: 'Manzana pero azul',
-              translation: 'Apple pero azul'
+              translation: 'Apple but blue',
+              sHidden: false,
+              tHidden: false,
             },
             {
               id: 1,
               source: 'Naranja pero azul',
-              translation: 'Orange pero azul'
+              translation: 'Orange but blue',
+              sHidden: false,
+              tHidden: false,
             },
             {
               id: 2,
               source: 'Platana pero azul',
-              translation: 'Banana pero azul'
+              translation: 'Banana but blue',
+              sHidden: false,
+              tHidden: false,
             }
           ]
         }
@@ -181,15 +200,15 @@ class App extends Component {
     newSubList.push({
       id: 0,
       source: source,
-      translation: translation
+      translation: translation,
+      sHidden: false,
+      tHidden: false
     });
 
     for (let i = 0; i < newSubList.length; i++) {
       newSubList[i].id = i;
     }
     
-
-
     this.setState({topics: newList});
   }
 
@@ -222,11 +241,46 @@ class App extends Component {
     this.setState({topics: list});
   }
 
+  hideOrRevealTile = (pairId, isSource) => {
+    var newList = [...this.state.topics];
+    var newSubList = newList[this.state.selectedTopic].list;
+
+    if (isSource) {
+      newSubList[pairId].sHidden = !newSubList[pairId].sHidden;
+    }
+    else {
+      newSubList[pairId].tHidden = !newSubList[pairId].tHidden;
+    }
+
+    newList[this.state.selectedTopic].list = newSubList;
+    
+    this.setState({topics: newList});
+  }
+
+  flipSourceOrTranslations = (isSource) => {
+    console.log("Flipping", isSource);
+    var newList = [...this.state.topics];
+    var newSubList = newList[this.state.selectedTopic].list;
+
+    for (let i = 0; i < newSubList.length; i++) {
+      if (isSource) {
+        newSubList[i].sHidden = !newSubList[i].sHidden;
+      }
+      else {
+        newSubList[i].tHidden = !newSubList[i].tHidden;
+      }
+    }
+
+    newList[this.state.selectedTopic].list = newSubList;
+    
+    this.setState({topics: newList});
+  }
+
+
   render() {
     console.log(this.state.topics);
     return (
       <div className='app-view-container'>
-        <button id='anki-export' onClick={() => {testFetch("ES", "EN")}}></button>
         <TopicListView 
           topics={this.state.topics} 
           setSelectedTopic={this.setSelectedTopic.bind(this)} 
@@ -238,7 +292,9 @@ class App extends Component {
           deletePair={this.deletePair.bind(this)} 
           selectedTopicId={this.state.selectedTopic}
           selectedTopicName={this.state.topics[this.state.selectedTopic].name}
-          changeTopicNameBoxValue={this.changeTopicNameBoxValue.bind(this)}/>
+          changeTopicNameBoxValue={this.changeTopicNameBoxValue.bind(this)}
+          hideOrRevealTile={this.hideOrRevealTile.bind(this)}
+          flipSourceOrTranslations={this.flipSourceOrTranslations.bind(this)}/>
         <CommandWindow />
         <GenerationWindow 
           pairs={this.state.cmd_window_pairs} 
