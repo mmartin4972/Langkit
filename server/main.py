@@ -24,24 +24,39 @@ def get_phrase_embedding(phrase:str) :
 
 print("Models loaded")
 
-# TODO: Would be good to cache these embeddings in a file to reduce launch time
-funcs = {
-    'GEN_PHRASE': {
-        'str': 'generate phrases', 
-        'emb': get_phrase_embedding('generate phrases')
-    },
-    'GEN_WORD': {
-        'str': 'generate words',
-        'emb': get_phrase_embedding('generate words')
-    },
-    'TRANS': {
-        'str': 'translate',
-        'emb': get_phrase_embedding('translate')
-    },
-    'UNKNOWN': {
-        'str': '',
-        'emb': [[0]*512]
-    }
+# TODO: Would be good to cache these embeddings in a file to reduce launch time	
+funcs = {	
+    'GEN_PHRASE': {	
+        'str': 'generate phrases', 	
+        'emb': [	
+            get_phrase_embedding('generate phrases'),	
+            get_phrase_embedding('generate sentences'),	
+            get_phrase_embedding('create sentences'),	
+            get_phrase_embedding('develop phrases'),	
+        ]	
+    },	
+    'GEN_WORD': {	
+        'str': 'generate words',	
+        'emb': [	
+            get_phrase_embedding('generate words'),	
+            get_phrase_embedding('generate vocabulary'),	
+            get_phrase_embedding('create words'),	
+            get_phrase_embedding('develop words'),	
+        ]	
+    },	
+    'TRANS': {	
+        'str': 'translate',	
+        'emb': [	
+            get_phrase_embedding('translate'),	
+            get_phrase_embedding('translate the phrase'),	
+        ]	
+    },	
+    'UNKNOWN': {	
+        'str': '',	
+        'emb': [	
+            [[0]*512]	
+        ]	
+    }	
 }
 
 print("Server Initialized Successfully")
@@ -51,7 +66,7 @@ def default():
     return "Server Ack\n"
 
 def parse_cmd(cmd) :
-    ents = extract_entities(cmd)
+    ents = extract_entities(cmd.lower())
 
     elt = {
         'FUNC':'UNKNOWN',
@@ -64,11 +79,12 @@ def parse_cmd(cmd) :
         if ent.label_ == 'FUNC' :
             # Find func enum that best matches extracted func phrase
             best_dist = 0.5
-            for func in funcs :
-                dist = np.inner(funcs[func]['emb'], get_phrase_embedding(ent.text)) # TODO could do embedding in batch
-                if best_dist < dist :
-                    elt['FUNC'] = func
-                    best_dist = dist
+            for func in funcs :	
+                for emb in funcs[func]['emb'] :	
+                    dist = np.inner(emb, get_phrase_embedding(ent.text)) # TODO could do embedding in batch	
+                    if best_dist < dist :	
+                        elt['FUNC'] = func	
+                        best_dist = dist
 
         elif ent.label_ == 'PARAM' :
             elt['PARAM'] = ent.text  
@@ -78,23 +94,30 @@ def parse_cmd(cmd) :
 
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd_point():
-    cmds = request.json
-    res = parse_cmd(cmds['cmd'])
+    # cmds = request.json
+    # res = parse_cmd(cmds['cmd'])
 
-    sourceLanguage = cmds['sourceLang'].lower()
-    targetLanguage = cmds['targetLang'].lower()
+    # sourceLanguage = cmds['sourceLang'].lower()
+    # targetLanguage = cmds['targetLang'].lower()
 
-    phrases = query_gpt3(res['PARAM'])
+    # phrases = query_gpt3(res['PARAM'])
 
-    jsonified_phrases = []
+    # jsonified_phrases = []
 
-    for p in phrases:
-        if sourceLanguage == 'EN':
-            jsonified_phrases.append({'source': p, 'translation': translate_text(p, target=targetLanguage)})
-        else:
-            jsonified_phrases.append({'source': translate_text(p, target=sourceLanguage), 'translation': translate_text(p, target=targetLanguage)})
+    # for p in phrases:
+    #     if sourceLanguage == 'EN':
+    #         jsonified_phrases.append({'source': p, 'translation': translate_text(p, target=targetLanguage)})
+    #     else:
+    #         jsonified_phrases.append({'source': translate_text(p, target=sourceLanguage), 'translation': translate_text(p, target=targetLanguage)})
             
-    return jsonify(phrases)
+    # return jsonify(phrases)
+    cmds = request.json	
+    res = []	
+    	
+    for cmd in cmds :	
+        res.append(parse_cmd(cmd['cmd']))	
+        	
+    return jsonify(res)
 
 
 def prompt_engineer (topic: str):

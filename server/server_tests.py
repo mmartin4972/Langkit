@@ -2,7 +2,7 @@ import requests
 
 local_url = 'http://127.0.0.1:5000'
 prod_url = 'https://langkit-prod.herokuapp.com'
-url = prod_url
+url = local_url
 data = [
     {'cmd': 'Generate a word about a dinner party'}
 ]
