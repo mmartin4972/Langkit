@@ -136,10 +136,10 @@ class App extends Component {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
-      body: JSON.stringify({ 
-        cmd: 'Generate me phrases about a dinner party' ,
-        to: sourceLang,
-        from: targetLang
+      body: JSON.stringify({
+        cmd: 'Generate me phrases about a dinner party',
+        sourceLang: sourceLang,
+        targetLang: targetLang
       })
     };
   

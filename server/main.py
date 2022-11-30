@@ -94,30 +94,13 @@ def parse_cmd(cmd) :
 
 @app.route('/parse-cmd', methods=['POST'])
 def parse_cmd_point():
-    cmds = request.json
-    res = parse_cmd(cmds['cmd'])
-
-    sourceLanguage = cmds['sourceLang'].lower()
-    targetLanguage = cmds['targetLang'].lower()
-
-    phrases = query_gpt3(res['PARAM'])
-
-    jsonified_phrases = []
-
-    for p in phrases:
-        if sourceLanguage == 'EN':
-            jsonified_phrases.append({'source': p, 'translation': translate_text(p, target=targetLanguage)})
-        else:
-            jsonified_phrases.append({'source': translate_text(p, target=sourceLanguage), 'translation': translate_text(p, target=targetLanguage)})
-            
-    return jsonify(phrases)
-    # cmds = request.json	
-    # res = []	
+    cmds = request.json	
+    res = []	
     	
-    # for cmd in cmds :	
-    #     res.append(parse_cmd(cmd['cmd']))	
+    for cmd in cmds :	
+        res.append(parse_cmd(cmd['cmd']))	
         	
-    # return jsonify(res)
+    return jsonify(res)
 
 
 def prompt_engineer (topic: str, ty: str):
@@ -180,7 +163,7 @@ def query_gpt3(query, n_in=1, max_tokens_in=300) :
     for choice in out['choices']:
         res.append(choice['text'][0])
 
-    return res
+    return res[0]
 
 
 @app.route('/translate', methods=['POST'])
@@ -209,7 +192,7 @@ def process():
     if 'GEN_PHRASE' == func:
         r = query_gpt3(prompt_engineer(param, "phrases"))
         generated_strings = get_choices(r[0])
-    elif 'GEN_WORD' == func :
+    elif 'GEN_WORD' == func:
         r = query_gpt3(prompt_engineer(param, "words"))
         generated_strings = get_choices(r[0])
     elif 'TRANS' == func:
